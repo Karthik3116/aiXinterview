@@ -1,16 +1,12 @@
-// backend/config/db.js
+// config/db.js (if you decide to separate it)
 const mongoose = require('mongoose');
-require('dotenv').config(); // Load environment variables
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      // Optional: Add other options if needed, e.g., serverSelectionTimeoutMS
-    });
+    await mongoose.connect(process.env.MONGO_URI);
     console.log('MongoDB Connected...');
   } catch (err) {
-    console.error(`MongoDB Connection Error: ${err.message}`);
-    // Exit process with failure
+    console.error(err.message);
     process.exit(1);
   }
 };

@@ -1,58 +1,81 @@
+
+// // backend/server.js
+
 // const express = require('express');
+// const connectDB = require('./config/db');
 // const cors = require('cors');
-// const morgan = require('morgan');
-// require('dotenv').config();
+// const dotenv = require('dotenv');
+
+// // Load environment variables from .env file
+// dotenv.config();
+
+// const FRONTEND_URL = process.env.FRONTEND_URL;
 
 // const app = express();
 
-// app.use(cors());
-// app.use(express.json());
-// app.use(morgan('dev'));
+// app.use(cors({
+//   origin: FRONTEND_URL,
+//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+//   credentials: true, // if you use cookies or authorization headers
+// }));
 
-// const interviewRoutes = require('./routes/interview');
-// app.use('/api/interview', interviewRoutes);
 
+// // Connect to MongoDB
+// connectDB();
+
+// // Middleware
+// app.use(express.json()); // Parses incoming JSON requests
+// app.use(cors());         // Enables CORS for all origins (configure more strictly in production)
+
+// // Routes
+// app.use('/api/auth', require('./routes/auth'));           // User authentication
+// app.use('/api/interview', require('./routes/interview')); // Interview question & feedback
+
+// // Health check endpoint
+// app.get('/', (req, res) => {
+//   res.send('AI Interview Backend API Running');
+// });
+
+// // Start server
 // const PORT = process.env.PORT || 5000;
-// app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+// app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
 
-// backend/server.js
 
+// server.js
+require('dotenv').config(); // Load environment variables from .env file
 const express = require('express');
-const connectDB = require('./config/db');
-const cors = require('cors');
-const dotenv = require('dotenv');
-
-// Load environment variables from .env file
-dotenv.config();
-
-const FRONTEND_URL = process.env.FRONTEND_URL;
+const mongoose = require('mongoose');
+const cors = require('cors'); // Import cors middleware
+const authRoutes = require('./routes/auth');
+const interviewRoutes = require('./routes/interview'); // Your interview routes
 
 const app = express();
 
-app.use(cors({
-  origin: FRONTEND_URL,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  credentials: true, // if you use cookies or authorization headers
-}));
-
-
 // Connect to MongoDB
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log('MongoDB Connected...');
+  } catch (err) {
+    console.error(err.message);
+    process.exit(1); // Exit process with failure
+  }
+};
 connectDB();
 
 // Middleware
-app.use(express.json()); // Parses incoming JSON requests
-app.use(cors());         // Enables CORS for all origins (configure more strictly in production)
+app.use(express.json()); // Body parser for JSON
+app.use(cors()); // Enable CORS for all routes
 
-// Routes
-app.use('/api/auth', require('./routes/auth'));           // User authentication
-app.use('/api/interview', require('./routes/interview')); // Interview question & feedback
+// Define Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/interview', interviewRoutes);
 
-// Health check endpoint
+// Basic route for testing
 app.get('/', (req, res) => {
-  res.send('AI Interview Backend API Running');
+  res.send('API Running');
 });
 
-// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
