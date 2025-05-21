@@ -1,22 +1,9 @@
-// import React from 'react';
-
-// const Home = () => {
-//   return (
-//     <div className="container mt-5">
-//       <h1>Welcome to AI Interview Platform</h1>
-//       <p>Login to start your voice-based AI interview!</p>
-//     </div>
-//   );
-// };
-
-// export default Home;
-
 
 // src/pages/Home.js
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import InterviewCard from '../components/InterviewCard'; // Import the new component
+import InterviewCard from '../components/InterviewCard';
 
 const Home = ({ user }) => {
   const [interviews, setInterviews] = useState([]);
@@ -32,66 +19,55 @@ const Home = ({ user }) => {
       try {
         const token = localStorage.getItem('token');
         const res = await axios.get('http://localhost:5000/api/interview', {
-          headers: {
-            'x-auth-token': token,
-          },
+          headers: { 'x-auth-token': token },
         });
         setInterviews(res.data);
       } catch (err) {
-        console.error('Error fetching interviews:', err);
         setError('Failed to fetch interviews. Please try again.');
       } finally {
         setLoading(false);
       }
     };
-
     fetchInterviews();
-  }, [user]); // Refetch when user changes (e.g., login/logout)
+  }, [user]);
 
   if (!user) {
     return (
-      <div className="container mt-5">
-        <h1>Welcome to AI Interview Platform</h1>
-        <p>Login to start your voice-based AI interview!</p>
+      <div className="max-w-3xl mx-auto mt-10 px-4 text-center">
+        <h1 className="text-3xl font-bold">Welcome to AI Interview Platform</h1>
+        <p className="mt-2 text-gray-600">Login to start your voice-based AI interview!</p>
       </div>
     );
   }
 
   if (loading) {
     return (
-      <div className="container mt-5 text-center">
-        <div className="spinner-border text-primary" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <p>Loading your interviews...</p>
+      <div className="flex flex-col items-center mt-10">
+        <div className="animate-spin h-10 w-10 border-4 border-blue-500 rounded-full border-t-transparent"></div>
+        <p className="mt-3 text-gray-700">Loading your interviews...</p>
       </div>
     );
   }
 
   if (error) {
-    return <div className="container mt-5 alert alert-danger">{error}</div>;
+    return <div className="mt-10 max-w-md mx-auto text-red-500 text-center">{error}</div>;
   }
 
   return (
-    <div className="container mt-5">
-      <h1 className="mb-4 text-center">Your Interviews</h1>
-
-      <div className="text-center mb-4">
-        <Link to="/interview/new" className="btn btn-lg btn-success">
-          <i className="bi bi-plus-circle me-2"></i> Create a New Interview
+    <div className="max-w-6xl mx-auto px-4 mt-10">
+      <h1 className="text-3xl font-bold text-center mb-6">Your Interviews</h1>
+      <div className="text-center mb-6">
+        <Link to="/interview/new" className="inline-flex items-center px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700">
+          <span className="mr-2">+</span> Create a New Interview
         </Link>
       </div>
 
       {interviews.length === 0 ? (
-        <div className="alert alert-info text-center">
-          You haven't taken any interviews yet. Click "Create a New Interview" to get started!
-        </div>
+        <div className="text-center text-blue-500">No interviews yet. Start one!</div>
       ) : (
-        <div className="row">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {interviews.map((interview) => (
-            <div key={interview._id} className="col-md-6 col-lg-4 mb-4">
-              <InterviewCard interview={interview} />
-            </div>
+            <InterviewCard key={interview._id} interview={interview} />
           ))}
         </div>
       )}
