@@ -1,42 +1,64 @@
 
+// // export default Navbar;
 
-// // src/components/Navbar.js
 // import React from 'react';
 // import { Link } from 'react-router-dom';
 
 // const Navbar = ({ user, onLogout }) => {
 //   return (
-//     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-//       <div className="container-fluid">
-//         <Link className="navbar-brand" to="/">AI Interview</Link>
-//         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-//           <span className="navbar-toggler-icon"></span>
-//         </button>
-//         <div className="collapse navbar-collapse" id="navbarNav">
-//           <ul className="navbar-nav ms-auto">
+//     <nav className="bg-gray-900 text-white shadow-md">
+//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+//         <div className="flex justify-between items-center h-16">
+//           {/* Logo / Brand */}
+//           <div className="flex-shrink-0">
+//             <Link to="/" className="text-xl font-bold text-white hover:text-indigo-400">
+//               AI Interview
+//             </Link>
+//           </div>
+
+//           {/* Menu Toggle (for mobile if needed in the future) */}
+//           {/* You can implement mobile toggle logic here if desired */}
+
+//           {/* Right Menu */}
+//           <div className="hidden md:flex space-x-4 items-center">
 //             {!user ? (
 //               <>
-//                 <li className="nav-item">
-//                   <Link className="nav-link" to="/login">Login</Link>
-//                 </li>
-//                 <li className="nav-item">
-//                   <Link className="nav-link" to="/signup">Signup</Link>
-//                 </li>
+//                 <Link
+//                   to="/login"
+//                   className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium"
+//                 >
+//                   Login
+//                 </Link>
+//                 <Link
+//                   to="/signup"
+//                   className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium"
+//                 >
+//                   Signup
+//                 </Link>
 //               </>
 //             ) : (
 //               <>
-//                 <li className="nav-item">
-//                   <Link className="nav-link" to="/">Home</Link>
-//                 </li>
-//                 <li className="nav-item">
-//                   <Link className="nav-link" to="/interview/new">Create Interview</Link>
-//                 </li>
-//                 <li className="nav-item">
-//                   <button className="nav-link btn btn-link" onClick={onLogout}>Logout</button>
-//                 </li>
+//                 <Link
+//                   to="/"
+//                   className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium"
+//                 >
+//                   Home
+//                 </Link>
+//                 <Link
+//                   to="/interview/new"
+//                   className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium"
+//                 >
+//                   Create Interview
+//                 </Link>
+//                 <button
+//                   onClick={onLogout}
+//                   className="text-white hover:text-red-400 px-3 py-2 rounded-md text-sm font-medium"
+//                 >
+//                   Logout
+//                 </button>
 //               </>
 //             )}
-//           </ul>
+//           </div>
 //         </div>
 //       </div>
 //     </nav>
@@ -45,58 +67,71 @@
 
 // export default Navbar;
 
-import React from 'react';
-import { Link } from 'react-router-dom';
+
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
 
 const Navbar = ({ user, onLogout }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+  const closeMenu = () => setIsOpen(false);
+
+  const NavLink = ({ to, label }) => (
+    <Link
+      to={to}
+      onClick={closeMenu}
+      className={`block md:inline-block px-3 py-2 rounded-md text-sm font-medium ${
+        location.pathname === to
+          ? 'bg-indigo-600 text-white'
+          : 'text-white hover:bg-indigo-500 hover:text-white'
+      }`}
+    >
+      {label}
+    </Link>
+  );
+
   return (
-    <nav className="bg-gray-900 text-white shadow-md">
+    <nav className="bg-gray-900 shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo / Brand */}
+          {/* Logo */}
           <div className="flex-shrink-0">
-            <Link to="/" className="text-xl font-bold text-white hover:text-indigo-400">
+            <Link
+              to="/"
+              className="text-2xl font-bold text-white hover:text-indigo-400"
+              onClick={closeMenu}
+            >
               AI Interview
             </Link>
           </div>
 
-          {/* Menu Toggle (for mobile if needed in the future) */}
-          {/* You can implement mobile toggle logic here if desired */}
+          {/* Mobile menu button */}
+          <div className="md:hidden">
+            <button
+              onClick={toggleMenu}
+              className="text-gray-300 hover:text-white focus:outline-none"
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
 
-          {/* Right Menu */}
-          <div className="hidden md:flex space-x-4 items-center">
+          {/* Desktop menu */}
+          <div className="hidden md:flex items-center space-x-4">
             {!user ? (
               <>
-                <Link
-                  to="/login"
-                  className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/signup"
-                  className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Signup
-                </Link>
+                <NavLink to="/login" label="Login" />
+                <NavLink to="/signup" label="Signup" />
               </>
             ) : (
               <>
-                <Link
-                  to="/"
-                  className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Home
-                </Link>
-                <Link
-                  to="/interview/new"
-                  className="text-white hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Create Interview
-                </Link>
+                <NavLink to="/" label="Home" />
+                <NavLink to="/interview/new" label="Create Interview" />
                 <button
                   onClick={onLogout}
-                  className="text-white hover:text-red-400 px-3 py-2 rounded-md text-sm font-medium"
+                  className="px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-red-600"
                 >
                   Logout
                 </button>
@@ -105,6 +140,32 @@ const Navbar = ({ user, onLogout }) => {
           </div>
         </div>
       </div>
+
+      {/* Mobile menu items */}
+      {isOpen && (
+        <div className="md:hidden px-4 pb-4 space-y-2">
+          {!user ? (
+            <>
+              <NavLink to="/login" label="Login" />
+              <NavLink to="/signup" label="Signup" />
+            </>
+          ) : (
+            <>
+              <NavLink to="/" label="Home" />
+              <NavLink to="/interview/new" label="Create Interview" />
+              <button
+                onClick={() => {
+                  onLogout();
+                  closeMenu();
+                }}
+                className="block w-full text-left px-3 py-2 rounded-md text-sm font-medium text-white hover:bg-red-600"
+              >
+                Logout
+              </button>
+            </>
+          )}
+        </div>
+      )}
     </nav>
   );
 };
