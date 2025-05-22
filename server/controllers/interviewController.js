@@ -186,53 +186,61 @@ exports.generateQuestions = async (req, res) => {
 // @desc    Regenerate questions for existing interview and reset for retake
 // @access  Private
 exports.regenerateQuestions = async (req, res) => {
-  const { subject, numQuestions } = req.body;
-  const interviewId = req.params.id;
-  const userId = req.user.id; // From auth middleware
+    const { subject, numQuestions } = req.body;
+    const interviewId = req.params.id;
+    const userId = req.user.id; // From auth middleware
 
-  try {
-    // Find the existing interview
-    let interview = await Interview.findById(interviewId);
+    try {
+        // Find the existing interview by ID and ensure it belongs to the user
+        let interview = await Interview.findById(interviewId);
 
-    if (!interview) {
-      return res.status(404).json({ msg: 'Interview not found' });
+        if (!interview) {
+            return res.status(404).json({ msg: 'Interview not found' });
+        }
+
+        // Authorization check: Ensure the interview belongs to the authenticated user
+        if (interview.userId.toString() !== userId) {
+            return res.status(401).json({ msg: 'User not authorized' });
+        }
+
+        // Generate new questions using the Gemini model
+        const prompt = `Generate exactly ${numQuestions} interview questions for a ${subject} role. Provide them as a JSON array of strings, like this: {"questions": ["Question 1?", "Question 2?", ...]}.`;
+        const result = await model.generateContent(prompt);
+        const text = await result.response.text(); // Get the plain text response from Gemini
+
+        // Parse the questions from the AI's text response
+        const parsedResult = parseJsonFromText(text);
+        const questions = parsedResult?.questions;
+
+        // Validate the generated questions
+        if (!questions || !Array.isArray(questions) || questions.length === 0) {
+            console.error("Gemini failed to format questions correctly or returned empty:", text);
+            return res.status(500).json({ msg: "Failed to generate questions or received malformed response." });
+        }
+
+        // Update the existing interview record for a retake
+        interview.questions = questions;       // Replace with new questions
+        interview.conversation = [];           // Clear previous conversation
+        interview.completed = false;           // Mark as incomplete for a new attempt
+        // Note: The 'feedback' and 'history' are NOT reset here.
+        // A new feedback entry will be added to history, and the main
+        // feedback field will be updated when this new interview is completed.
+
+        await interview.save(); // Save the updated interview record
+
+        // Send back the new questions
+        res.json({ questions: interview.questions });
+
+    } catch (err) {
+        console.error("Error in regenerateQuestions:", err.message);
+        if (err.response) {
+            // Log specific error data from the Gemini API if available
+            console.error("Gemini API error data:", err.response.data);
+        }
+        res.status(500).send('Server Error during question regeneration');
     }
-
-    // Ensure the interview belongs to the user
-    if (interview.userId.toString() !== userId) {
-      return res.status(401).json({ msg: 'User not authorized' });
-    }
-
-    // Generate new questions
-    const prompt = `Generate exactly ${numQuestions} interview questions for a ${subject} role. Provide them as a JSON array of strings, like this: {"questions": ["Question 1?", "Question 2?", ...]}.`;
-    const result = await model.generateContent(prompt);
-    const text = await result.response.text();
-
-    const parsedResult = parseJsonFromText(text);
-    const questions = parsedResult?.questions;
-
-    if (!questions || !Array.isArray(questions) || questions.length === 0) {
-        console.error("Gemini failed to format questions correctly or returned empty:", text);
-        return res.status(500).json({ msg: "Failed to generate questions or received malformed response." });
-    }
-
-    // Update the interview with new questions and reset for retake
-    interview.questions = questions;
-    interview.conversation = []; // Reset conversation
-    interview.completed = false; // Reset completion status
-    // Note: We don't reset feedback or history here - they will be updated when new feedback is generated
-
-    await interview.save();
-
-    res.json({ questions: interview.questions });
-  } catch (err) {
-    console.error("Error in regenerateQuestions:", err.message);
-    if (err.response) {
-      console.error("Gemini API error data:", err.response.data);
-    }
-    res.status(500).send('Server Error during question regeneration');
-  }
 };
+
 
 // @route   POST api/interview/:id/complete
 // @desc    Update interview with conversation and mark as completed

@@ -20,6 +20,8 @@ const auth = require('../middleware/auth');
 // Generate questions and create a new interview record
 router.post('/generate', auth, interviewController.generateQuestions);
 
+router.post('/:id/regenerate', auth, interviewController.regenerateQuestions); // <--- ADDED THIS LINE
+
 // Get all interviews for the authenticated user
 router.get('/', auth, interviewController.getAllInterviews);
 
