@@ -1732,7 +1732,7 @@ const Interview = ({ user }) => {
       setPreparingInterview(false);
       return;
     }
-
+    
     try {
       const token = localStorage.getItem('token');
       const res = await axios.post(
@@ -1788,7 +1788,7 @@ const Interview = ({ user }) => {
     try {
       const token = localStorage.getItem('token');
       const res = await axios.post(
-        `${import.meta.env.VITE_API_BASE_URL}/api/interview/${currentInterviewRecordId}/regenerate`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/interview/generate`,
         { subject, numQuestions },
         { headers: { 'x-auth-token': token } }
       );

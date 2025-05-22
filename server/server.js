@@ -97,18 +97,7 @@ app.get('/', (req, res) => {
 });
 
 // ✅ Live Logs Dashboard
-// app.get('/status', statusMonitor().pageRoute); // 👈 Route to live dashboard
-
-// 🔐 Secure /status route with a query key (e.g., /status?key=supersecret123)
-app.get('/status', (req, res, next) => {
-  const key = req.query.key;
-  if (!key || key !== process.env.STATUS_KEY) {
-    return res.status(403).send('<h2>Access Denied</h2><p>Invalid or missing access key.</p>');
-  }
-  next();
-}, statusMonitor().pageRoute);
-
-
+app.get('/status', statusMonitor().pageRoute); // 👈 Route to live dashboard
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
