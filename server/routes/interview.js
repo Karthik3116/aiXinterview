@@ -37,6 +37,5 @@ router.post('/:interviewId/feedback', auth, interviewController.generateFeedback
 // Get feedback for a specific interview (now by interviewId, as feedback is embedded)
 router.get('/:interviewId/feedback', auth, interviewController.getInterviewFeedback);
 
-router.post('/vapi-webhook', interviewController.handleVapiWebhook); // No 'auth' middleware needed here!
 
 module.exports = router;
