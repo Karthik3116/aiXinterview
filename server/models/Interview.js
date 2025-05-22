@@ -84,7 +84,6 @@
 // module.exports = mongoose.model('Interview', InterviewSchema);
 
 
-// models/Interview.js
 const mongoose = require('mongoose');
 
 const InterviewSchema = new mongoose.Schema({
