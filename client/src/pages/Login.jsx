@@ -70,7 +70,7 @@ const Login = ({ setUser }) => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      const res = await axios.post('https://aixinterview.onrender.com/api/auth/login', { email, password });
       const { token, user } = res.data;
       const userId = user?.id;
 
@@ -87,6 +87,8 @@ const Login = ({ setUser }) => {
     }
   };
 
+
+  
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
