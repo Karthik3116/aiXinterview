@@ -51,6 +51,8 @@
 //           setLoading(false);
 //           return;
 //         }
+
+
 //         const res = await axios.get(`http://localhost:5000/api/interview/${interviewId}`, {
 //           headers: { 'x-auth-token': token },
 //         });
@@ -348,7 +350,7 @@ const Feedback = () => {
           setLoading(false);
           return;
         }
-        const res = await axios.get(`http://localhost:5000/api/interview/${interviewId}`, {
+        const res = await axios.get(`https://aixinterview.onrender.com/api/interview/${interviewId}`, {
           headers: { 'x-auth-token': token },
         });
         setInterview(res.data);

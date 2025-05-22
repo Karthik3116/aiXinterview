@@ -18,7 +18,7 @@ const Home = ({ user }) => {
       }
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:5000/api/interview', {
+        const res = await axios.get('https://aixinterview.onrender.com/api/interview', {
           headers: { 'x-auth-token': token },
         });
         setInterviews(res.data);
@@ -31,6 +31,8 @@ const Home = ({ user }) => {
     fetchInterviews();
   }, [user]);
 
+
+  
   if (!user) {
     return (
       <div className="max-w-3xl mx-auto mt-10 px-4 text-center">

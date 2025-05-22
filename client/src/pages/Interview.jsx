@@ -47,7 +47,7 @@ const Interview = ({ user }) => {
       setLoading(true);
       if (interviewId && interviewId !== 'new') {
         try {
-          const res = await axios.get(`http://localhost:5000/api/interview/${interviewId}`, {
+          const res = await axios.get(`https://aixinterview.onrender.com/api/interview/${interviewId}`, {
             headers: { 'x-auth-token': token },
           });
           const data = res.data;
@@ -92,13 +92,13 @@ const Interview = ({ user }) => {
     try {
       setPreparingInterview(true); // Set loading for feedback generation
       await axios.post(
-        `http://localhost:5000/api/interview/${currentInterviewRecordId}/complete`,
+        `https://aixinterview.onrender.com/api/interview/${currentInterviewRecordId}/complete`,
         { conversation: finalConversation },
         { headers: { 'x-auth-token': token } }
       );
 
       await axios.post(
-        `http://localhost:5000/api/interview/${currentInterviewRecordId}/feedback`,
+        `https://aixinterview.onrender.com/api/interview/${currentInterviewRecordId}/feedback`,
         {
           conversation: finalConversation,
           jobRole: subject,
@@ -263,7 +263,7 @@ const Interview = ({ user }) => {
     try {
       const token = localStorage.getItem('token');
       const res = await axios.post(
-        'http://localhost:5000/api/interview/generate',
+        'https://aixinterview.onrender.com/api/interview/generate',
         { subject, numQuestions },
         { headers: { 'x-auth-token': token } }
       );
@@ -311,12 +311,14 @@ const Interview = ({ user }) => {
     
     setPreparingInterview(true);
     
+
+    
     try {
       const token = localStorage.getItem('token');
       
       // Generate new questions for the existing interview
       const res = await axios.post(
-        `http://localhost:5000/api/interview/${currentInterviewRecordId}/regenerate`,
+        `https://aixinterview.onrender.com/api/interview/${currentInterviewRecordId}/regenerate`,
         { subject, numQuestions },
         { headers: { 'x-auth-token': token } }
       );
