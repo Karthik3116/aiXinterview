@@ -1,4 +1,5 @@
 
+// // src/App.js
 // import React, { useState, useEffect } from 'react';
 // import { Routes, Route, Navigate } from 'react-router-dom';
 // import Navbar from './components/Navbar';
@@ -52,7 +53,8 @@
 //     <>
 //       <Navbar user={user} onLogout={handleLogout} />
 //       <Routes>
-//         <Route path="/" element={<Home />} />
+//         {/* Pass user to Home so it can fetch interviews */}
+//         <Route path="/" element={<Home user={user} />} />
 //         <Route
 //           path="/login"
 //           element={user ? <Navigate to="/" /> : <Login setUser={setUser} />}
@@ -61,14 +63,23 @@
 //           path="/signup"
 //           element={user ? <Navigate to="/" /> : <Signup />}
 //         />
+//         {/* Route for creating a new interview */}
 //         <Route
-//           path="/interview"
+//           path="/interview/new"
 //           element={user ? <Interview user={user} /> : <Navigate to="/login" />}
 //         />
+//         {/* Route for viewing/continuing an existing interview */}
 //         <Route
-//           path="/interview/:interviewId/feedback/:feedbackId"
+//           path="/interview/:interviewId"
+//           element={user ? <Interview user={user} /> : <Navigate to="/login" />}
+//         />
+//         {/* Route for feedback. Feedback is now fetched by interviewId as it's embedded */}
+//         <Route
+//           path="/interview/:interviewId/feedback" // Removed feedbackId, now just interviewId
 //           element={user ? <Feedback /> : <Navigate to="/login" />}
 //         />
+//         {/* Redirect any other unknown paths to home if authenticated, or login */}
+//         <Route path="*" element={user ? <Navigate to="/" /> : <Navigate to="/login" />} />
 //       </Routes>
 //     </>
 //   );
@@ -76,8 +87,7 @@
 
 // export default App;
 
-
-// src/App.js
+// src/App.jsx
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -86,6 +96,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Interview from './pages/Interview';
 import Feedback from './pages/Feedback';
+import GuestLanding from './pages/GuestLanding'; // import the guest landing page
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -131,8 +142,9 @@ const App = () => {
     <>
       <Navbar user={user} onLogout={handleLogout} />
       <Routes>
-        {/* Pass user to Home so it can fetch interviews */}
-        <Route path="/" element={<Home user={user} />} />
+        {/* Show Home if logged in, else show GuestLanding */}
+        <Route path="/" element={user ? <Home user={user} /> : <GuestLanding />} />
+
         <Route
           path="/login"
           element={user ? <Navigate to="/" /> : <Login setUser={setUser} />}
@@ -151,12 +163,12 @@ const App = () => {
           path="/interview/:interviewId"
           element={user ? <Interview user={user} /> : <Navigate to="/login" />}
         />
-        {/* Route for feedback. Feedback is now fetched by interviewId as it's embedded */}
+        {/* Route for feedback */}
         <Route
-          path="/interview/:interviewId/feedback" // Removed feedbackId, now just interviewId
+          path="/interview/:interviewId/feedback"
           element={user ? <Feedback /> : <Navigate to="/login" />}
         />
-        {/* Redirect any other unknown paths to home if authenticated, or login */}
+        {/* Redirect unknown paths */}
         <Route path="*" element={user ? <Navigate to="/" /> : <Navigate to="/login" />} />
       </Routes>
     </>

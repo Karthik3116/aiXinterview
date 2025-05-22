@@ -19,7 +19,7 @@ exports.registerUser = async (req, res) => {
 
     const payload = { user: { id: user.id } };
 
-    jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
+    jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1d' }, (err, token) => {
       if (err) {
         console.error('JWT Sign Error:', err.message);
         return res.status(500).json({ msg: 'Token generation failed' });
@@ -62,7 +62,7 @@ exports.loginUser = async (req, res) => {
     }
 
     const payload = { user: { id: user.id } };
-    jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
+    jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1d' }, (err, token) => {
       if (err) {
         console.error('JWT Sign Error:', err.message);
         return res.status(500).json({ msg: 'Token generation failed' });
