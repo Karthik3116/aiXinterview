@@ -1,86 +1,7 @@
-// import React from 'react';
-// import { Link } from 'react-router-dom';
-// import { motion } from 'framer-motion'; // For smooth animations
 
-// const GuestLanding = () => {
-//   // Animation variants for a more dynamic entrance
-//   const containerVariants = {
-//     hidden: { opacity: 0, y: 20 },
-//     visible: {
-//       opacity: 1,
-//       y: 0,
-//       transition: {
-//         staggerChildren: 0.2,
-//       },
-//     },
-//   };
-
-
-  
-//   const itemVariants = {
-//     hidden: { opacity: 0, y: 20 },
-//     visible: { opacity: 1, y: 0 },
-//   };
-
-//   return (
-//     <motion.div
-//       className="min-h-232 flex flex-col items-center justify-center px-6 py-5 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 text-gray-800 font-sans relative overflow-hidden"
-
-//       initial="hidden"
-//       animate="visible"
-//       variants={containerVariants}
-//     >
-//       {/* Background blobs/shapes for modern feel */}
-//       <div className="absolute top-1/4 left-0 w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
-//       <div className="absolute bottom-1/4 right-0 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
-//       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000"></div>
-
-
-//       <motion.h1
-//         className="text-4xl md:text-6xl font-extrabold mb-4 text-center leading-tight tracking-tight text-blue-800 drop-shadow-sm"
-//         variants={itemVariants}
-//       >
-//         Unlock Your Potential with AI Interview Pro
-//       </motion.h1>
-
-//       <motion.p
-//         className="text-lg md:text-xl text-center mb-10 max-w-2xl text-gray-600 leading-relaxed"
-//         variants={itemVariants}
-//       >
-//         Revolutionize your interview preparation. Practice in **real-time** with advanced AI, receive **instant, personalized feedback**, and master your communication skills to ace your next opportunity.
-//       </motion.p>
-
-//       <motion.div className="flex flex-col sm:flex-row gap-5" variants={itemVariants}>
-//         <Link
-//           to="/login"
-//           className="px-8 py-3 text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-full transition-all duration-300 ease-in-out shadow-lg transform hover:scale-105 font-semibold text-lg focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-75"
-//         >
-//           Get Started
-//         </Link>
-//         <Link
-//           to="/signup"
-//           className="px-8 py-3 border-2 border-blue-600 text-blue-700 hover:bg-blue-50 rounded-full transition-all duration-300 ease-in-out shadow-md transform hover:scale-105 font-semibold text-lg focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-opacity-75"
-//         >
-//           Learn More
-//         </Link>
-//       </motion.div>
-
-//       <motion.div
-//         className="mt-20 text-sm text-gray-500 flex items-center space-x-1"
-//         variants={itemVariants}
-//       >
-//         <span>Built with</span>
-//         <span className="text-red-500 text-xl animate-pulse">❤️</span>
-//         <span>for aspiring professionals.</span>
-//       </motion.div>
-//     </motion.div>
-//   );
-// };
-
-// export default GuestLanding;
 // import React, { useState, useEffect } from 'react';
+// import { Link } from 'react-router-dom'; // This import is crucial
 // import { Star, Users, Zap, Target, CheckCircle, ArrowRight, Play } from 'lucide-react';
-// import { Link } from 'react-router-dom';
 
 // const GuestLanding = () => {
 //   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -173,29 +94,24 @@
 //             <Zap className="w-4 h-4 mr-2 text-purple-600" />
 //             <span className="text-sm font-semibold text-purple-800">AI-Powered Interview Training</span>
 //           </div>
-          
+
 //           <h1 className="text-5xl md:text-7xl font-extrabold mb-6 text-gray-900 leading-tight">
 //             Master Every Interview
 //             <br />
 //             <span className="text-4xl md:text-6xl text-purple-700">Land Your Dream Job</span>
 //           </h1>
-          
+
 //           <p className="text-xl md:text-2xl text-gray-700 mb-12 max-w-3xl mx-auto leading-relaxed">
 //             Practice with advanced AI that adapts to your industry, provides **real-time feedback**, and helps you build unshakeable confidence.
 //           </p>
-          
+
 //           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
-            
-//             <Link
-//               to = "/login"
-//             >
-            
-//               <button className="group px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-300 flex items-center">
-//                 Start Free Trial
-//                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-//               </button>
+//             {/* Changed to Link component */}
+//             <Link to="/login" className="group px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-300 flex items-center">
+//               Start Free Trial
+//               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
 //             </Link>
-            
+
 //             <button className="group px-8 py-4 border-2 border-gray-300 rounded-xl font-bold text-gray-800 text-lg transition-all duration-300 hover:bg-gray-100 hover:scale-105 flex items-center">
 //               <Play className="mr-2 w-5 h-5 text-gray-600" />
 //               Watch Demo
@@ -225,7 +141,7 @@
 //               Revolutionary technology meets proven interview strategies to give you the ultimate competitive advantage.
 //             </p>
 //           </div>
-          
+
 //           <div className="grid md:grid-cols-3 gap-8">
 //             {features.map((feature, index) => (
 //               <div key={index} className="group p-8 rounded-2xl bg-white shadow-lg border border-purple-100 hover:shadow-xl hover:border-purple-200 transition-all duration-300 hover:-translate-y-2">
@@ -249,7 +165,7 @@
 //               Join thousands of professionals who transformed their careers with AI Interview Pro.
 //             </p>
 //           </div>
-          
+
 //           <div className="relative max-w-4xl mx-auto">
 //             <div className="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-purple-200">
 //               <div className="flex items-center mb-6">
@@ -268,11 +184,11 @@
 //                   </div>
 //                 </div>
 //               </div>
-              
+
 //               <blockquote className="text-xl md:text-2xl text-gray-800 leading-relaxed mb-6 italic">
 //                 "{testimonials[currentTestimonial].content}"
 //               </blockquote>
-              
+
 //               <div className="flex items-center justify-between">
 //                 <div className="text-sm text-gray-500">
 //                   Now at **{testimonials[currentTestimonial].company}**
@@ -304,7 +220,7 @@
 //             <p className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto">
 //               Join **50,000+ professionals** who've already transformed their careers. Start your free trial today.
 //             </p>
-            
+
 //             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 text-gray-700 font-medium">
 //               <div className="flex items-center">
 //                 <CheckCircle className="w-5 h-5 mr-2 text-green-600" />
@@ -319,11 +235,12 @@
 //                 <span>Cancel anytime</span>
 //               </div>
 //             </div>
-            
-//             <button className="group px-10 py-5 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl font-bold text-white text-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-300 flex items-center mx-auto">
+
+//             {/* Changed to Link component */}
+//             <Link to="/login" className="group px-10 py-5 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl font-bold text-white text-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-300 flex items-center mx-auto">
 //               Start Your Success Journey
 //               <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform" />
-//             </button>
+//             </Link>
 //           </div>
 //         </div>
 //       </section>
@@ -348,13 +265,15 @@
 
 // export default GuestLanding;
 
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'; // This import is crucial
-import { Star, Users, Zap, Target, CheckCircle, ArrowRight, Play } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react'; // Import useRef for video
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { Star, Users, Zap, Target, CheckCircle, ArrowRight } from 'lucide-react'; // Removed Play icon as it's no longer needed for the button
 
 const GuestLanding = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [isVisible, setIsVisible] = useState({});
+  const videoRef = useRef(null); // Ref for the video element
 
   const testimonials = [
     {
@@ -395,11 +314,13 @@ const GuestLanding = () => {
       description: "Tailored questions and scenarios for tech, finance, consulting, and more. Practice with real interview questions from top companies."
     },
     {
-      icon: <Users className="w-8 h-8" />,
-      title: "Proven Success Rate",
-      description: "95% of our users report improved interview performance. Join thousands who've landed their dream jobs."
+      // New feature: Cutting-Edge AI Models
+      icon: <CheckCircle className="w-8 h-8" />, // Changed icon to CheckCircle, feel free to pick another
+      title: "Powered by State-of-the-Art AI",
+      description: "Leveraging the latest advancements in AI and NLP, our models provide highly accurate and nuanced feedback for unparalleled preparation."
     }
   ];
+
 
   const stats = [
     { number: "50K+", label: "Success Stories" },
@@ -421,10 +342,19 @@ const GuestLanding = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setIsVisible(prev => ({ ...prev, [entry.target.id]: true }));
+            // If the video section becomes visible, play the video
+            if (entry.target.id === 'section-demo' && videoRef.current) {
+              videoRef.current.play();
+            }
+          } else {
+            // If the video section leaves the viewport, pause the video
+            if (entry.target.id === 'section-demo' && videoRef.current) {
+              videoRef.current.pause();
+            }
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 } // Trigger when 10% of the element is visible
     );
 
     document.querySelectorAll('[id^="section-"]').forEach((el) => {
@@ -455,17 +385,35 @@ const GuestLanding = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
-            {/* Changed to Link component */}
-            <Link to="/login" className="group px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-300 flex items-center">
+            <Link to="/signup" className="group px-8 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl font-bold text-white text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-300 flex items-center">
               Start Free Trial
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
-
-            <button className="group px-8 py-4 border-2 border-gray-300 rounded-xl font-bold text-gray-800 text-lg transition-all duration-300 hover:bg-gray-100 hover:scale-105 flex items-center">
-              <Play className="mr-2 w-5 h-5 text-gray-600" />
-              Watch Demo
-            </button>
           </div>
+
+          <section id="section-demo" className={`py-20 px-6 bg-gray-50 transition-all duration-1000 ${isVisible['section-demo'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-8 text-gray-900">
+            See AI Interview Pro in Action
+          </h2>
+          <p className="text-xl text-gray-700 mb-12 max-w-3xl mx-auto">
+            Watch a quick demo to understand how our intelligent platform provides real-time feedback and helps you refine your responses.
+          </p>
+          <div className="relative w-full max-w-4xl mx-auto bg-black rounded-xl shadow-2xl overflow-hidden aspect-video">
+            <video
+              ref={videoRef}
+              controls
+              muted // Start muted for better user experience
+              loop // Loop the video
+              playsInline // Important for iOS auto-play
+              className="w-full h-full object-cover"
+            >
+              <source src="/aiXinterve_demo.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </section>
 
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto py-8 rounded-xl bg-white shadow-xl border border-gray-100">
@@ -481,8 +429,11 @@ const GuestLanding = () => {
         </div>
       </section>
 
+      {/* Video Demo Section */}
+      
+
       {/* Features Section */}
-      <section id="section-features" className={`py-20 px-6 bg-gray-50 transition-all duration-1000 ${isVisible['section-features'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      <section id="section-features" className={`py-20 px-6 bg-white transition-all duration-1000 ${isVisible['section-features'] ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-6 text-gray-900">Why AI Interview Pro?</h2>
@@ -493,7 +444,7 @@ const GuestLanding = () => {
 
           <div className="grid md:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <div key={index} className="group p-8 rounded-2xl bg-white shadow-lg border border-purple-100 hover:shadow-xl hover:border-purple-200 transition-all duration-300 hover:-translate-y-2">
+              <div key={index} className="group p-8 rounded-2xl bg-gray-50 shadow-lg border border-purple-100 hover:shadow-xl hover:border-purple-200 transition-all duration-300 hover:-translate-y-2">
                 <div className="text-purple-600 mb-4 group-hover:scale-110 transition-transform duration-300">
                   {feature.icon}
                 </div>
@@ -585,8 +536,8 @@ const GuestLanding = () => {
               </div>
             </div>
 
-            {/* Changed to Link component */}
-            <Link to="/login" className="group px-10 py-5 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl font-bold text-white text-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-300 flex items-center mx-auto">
+            {/* Changed to Link component, directly to signup */}
+            <Link to="/signup" className="group px-10 py-5 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl font-bold text-white text-xl transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-300 flex items-center justify-center mx-auto">
               Start Your Success Journey
               <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform" />
             </Link>
