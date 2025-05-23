@@ -21,3 +21,4 @@ build/
 # Development configurations
 local.env
 *.config
+.env
