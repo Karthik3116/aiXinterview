@@ -1034,6 +1034,8 @@ import InterviewCard from '../components/InterviewCard';
 import { toast } from 'react-toastify';
 import Fuse from 'fuse.js'; // Import Fuse.js
 
+import { getWorkingApiBaseUrl } from '../utils/apiBase'; // adjust path accordingly
+
 const Home = ({ user }) => {
     const [interviews, setInterviews] = useState([]);
     const [filteredResults, setFilteredResults] = useState([]);
@@ -1110,7 +1112,7 @@ const Home = ({ user }) => {
                 const token = localStorage.getItem('token');
 
                 // Use the environment variable safely
-                const baseUrl = import.meta.env.VITE_API_BASE_URL;
+                const baseUrl = await getWorkingApiBaseUrl();
 
                 if (!baseUrl) {
                     throw new Error("API base URL is not defined");
