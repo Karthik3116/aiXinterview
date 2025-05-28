@@ -68,7 +68,16 @@ const connectDB = async () => {
 connectDB();
 
 // ✅ Middlewares
-app.use(cors());
+// app.use(cors());
+const corsOptions = {
+  origin: '*', // allow all origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'x-auth-token'],
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
 app.use(statusMonitor()); // 📊 Add status monitor
 
