@@ -98,7 +98,7 @@
 //                 // If interviewId exists and is not 'new', fetch existing interview data
 //                 try {
 //                     const res = await axios.get(
-//                         `${import.meta.env.VITE_API_BASE_URL}/api/interview/${interviewId}`,
+//                         `${import.meta.env.}/api/interview/${interviewId}`,
 //                         {
 //                             headers: { 'x-auth-token': token },
 //                         }
@@ -600,6 +600,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import NewInterviewForm from '../components/NewInterviewForm';
 import ActiveInterviewDisplay from '../components/ActiveInterviewDisplay';
 
+import { getWorkingApiBaseUrl } from '../utils/apiBase';
+
 // Simple LoadingBar component (remains unchanged)
 const LoadingBar = ({ progress }) => {
     return (
@@ -646,6 +648,16 @@ const Interview = ({ user, vapi, vapiApiKey }) => {
 
     const conversationRef = useRef([]);
 
+    const [baseUrl, setBaseUrl] = useState('');
+
+    useEffect(() => {
+        const resolveBaseUrl = async () => {
+            const url = await getWorkingApiBaseUrl();
+            setBaseUrl(url);
+        };
+        resolveBaseUrl();
+    }, []);
+
     useEffect(() => {
         conversationRef.current = conversation;
     }, [conversation]);
@@ -688,8 +700,9 @@ const Interview = ({ user, vapi, vapiApiKey }) => {
             setLoadingProgress(30);
             if (interviewId && interviewId !== 'new') {
                 try {
+                    const baseUrl = await getWorkingApiBaseUrl();
                     const res = await axios.get(
-                        `${import.meta.env.VITE_API_BASE_URL}/api/interview/${interviewId}`,
+                        `${baseUrl}/api/interview/${interviewId}`,
                         {
                             headers: { 'x-auth-token': token },
                         }
@@ -747,13 +760,14 @@ const Interview = ({ user, vapi, vapiApiKey }) => {
     const saveInterviewDataAndGenerateFeedback = useCallback(
         async (finalConversation) => {
             const token = localStorage.getItem('token');
+
             if (!token || !currentInterviewRecordId) return;
 
             try {
                 setPreparingInterview(true);
                 setLoadingProgress(30);
                 await axios.post(
-                    `${import.meta.env.VITE_API_BASE_URL}/api/interview/${currentInterviewRecordId}/complete`,
+                    `${baseUrl}/api/interview/${currentInterviewRecordId}/complete`,
                     { conversation: finalConversation },
                     { headers: { 'x-auth-token': token } }
                 );
@@ -761,7 +775,7 @@ const Interview = ({ user, vapi, vapiApiKey }) => {
                 setLoadingProgress(60);
 
                 await axios.post(
-                    `${import.meta.env.VITE_API_BASE_URL}/api/interview/${currentInterviewRecordId}/feedback`,
+                    `${baseUrl}/api/interview/${currentInterviewRecordId}/feedback`,
                     {
                         conversation: finalConversation,
                         jobRole: subject,
@@ -772,7 +786,7 @@ const Interview = ({ user, vapi, vapiApiKey }) => {
                 setLoadingProgress(80);
 
                 const updatedRes = await axios.get(
-                    `${import.meta.env.VITE_API_BASE_URL}/api/interview/${currentInterviewRecordId}`,
+                    `${baseUrl}/api/interview/${currentInterviewRecordId}`,
                     { headers: { 'x-auth-token': token } }
                 );
                 setVapiRecordingUrl(updatedRes.data.vapiRecordingUrl || null);
@@ -998,7 +1012,7 @@ const Interview = ({ user, vapi, vapiApiKey }) => {
             const token = localStorage.getItem('token');
             setLoadingProgress(20);
             const res = await axios.post(
-                `${import.meta.env.VITE_API_BASE_URL}/api/interview/generate`,
+                `${baseUrl}/api/interview/generate`,
                 { subject: newSubject, numQuestions: newNumQuestions },
                 { headers: { 'x-auth-token': token } }
             );
@@ -1072,7 +1086,7 @@ const Interview = ({ user, vapi, vapiApiKey }) => {
             const token = localStorage.getItem('token');
             setLoadingProgress(20);
             const res = await axios.post(
-                `${import.meta.env.VITE_API_BASE_URL}/api/interview/${currentInterviewRecordId}/regenerate`,
+                `${baseUrl}/api/interview/${currentInterviewRecordId}/regenerate`,
                 { subject, numQuestions },
                 { headers: { 'x-auth-token': token } }
             );

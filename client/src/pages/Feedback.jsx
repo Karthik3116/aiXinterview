@@ -246,6 +246,7 @@ import axios from 'axios';
 import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
+import { getWorkingApiBaseUrl } from '../utils/apiBase';
 
 const LoadingSpinner = () => (
     <div className="flex flex-col items-center justify-center min-h-[200px] mt-20"> {/* Added mt-20 for top spacing */}
@@ -287,12 +288,13 @@ const Feedback = () => {
         const fetchFeedback = async () => {
             try {
                 const token = localStorage.getItem('token');
+                const baseUrl = await getWorkingApiBaseUrl();
                 if (!token) {
                     setError('Authentication token missing. Please log in to view feedback.');
                     setLoading(false);
                     return;
                 }
-                const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/interview/${interviewId}`, {
+                const res = await axios.get(`${baseUrl}/api/interview/${interviewId}`, {
                     headers: { 'x-auth-token': token },
                 });
                 setInterview(res.data);

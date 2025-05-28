@@ -102,11 +102,13 @@
 
 // export default Login;
 
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify'; // Import toast
 import 'react-toastify/dist/ReactToastify.css'; // Make sure to import the CSS in your entry file (e.g., App.js or main.jsx)
+
+import { getWorkingApiBaseUrl } from '../utils/apiBase';
 
 const Login = ({ setUser }) => {
   const [email, setEmail] = useState('');
@@ -114,12 +116,23 @@ const Login = ({ setUser }) => {
   const [loading, setLoading] = useState(false); // New loading state
   const navigate = useNavigate();
 
+  const [baseUrl, setBaseUrl] = useState('');
+
+  useEffect(() => {
+    const resolveBaseUrl = async () => {
+      const url = await getWorkingApiBaseUrl();
+      setBaseUrl(url);
+    };
+    resolveBaseUrl();
+  }, []);
+
+
   const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true); // Set loading to true when form is submitted
     try {
       // Make sure VITE_API_BASE_URL is correctly configured in your .env file
-      const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/login`, { email, password });
+      const res = await axios.post(`${baseUrl}/api/auth/login`, { email, password });
       const { token, user } = res.data;
       const userId = user?.id;
 

@@ -1052,6 +1052,16 @@ const Home = ({ user }) => {
 
     // Fuse.js instance reference
     const fuseRef = useRef(null);
+    const [baseUrl, setBaseUrl] = useState('');
+
+    useEffect(() => {
+        const resolveBaseUrl = async () => {
+            const url = await getWorkingApiBaseUrl();
+            setBaseUrl(url);
+        };
+        resolveBaseUrl();
+    }, []);
+
 
     // 📏 Responsive items per page
     useEffect(() => {
@@ -1067,17 +1077,49 @@ const Home = ({ user }) => {
     }, []);
 
     // 📡 Fetch interviews
+    // useEffect(() => {
+    //     const fetchInterviews = async () => {
+    //         if (!user || !user.token) {
+    //             setLoading(false);
+    //             return;
+    //         }
+    //         try {
+    //             const token = localStorage.getItem('token');
+    //             const res = await axios.get(`${baseUrl}/api/interview`, {
+    //                 headers: { 'x-auth-token': token },
+    //             });
+    //             setInterviews(res.data);
+    //         } catch (err) {
+    //             console.error('Failed to fetch interviews:', err);
+    //             setError('Failed to load your interviews. Please try refreshing the page.');
+    //             toast.error('Failed to load interviews.');
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     };
+    //     fetchInterviews();
+    // }, [user]);
     useEffect(() => {
         const fetchInterviews = async () => {
             if (!user || !user.token) {
                 setLoading(false);
                 return;
             }
+
             try {
                 const token = localStorage.getItem('token');
-                const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/interview`, {
+
+                // Use the environment variable safely
+                const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
+                if (!baseUrl) {
+                    throw new Error("API base URL is not defined");
+                }
+
+                const res = await axios.get(`${baseUrl}/api/interview`, {
                     headers: { 'x-auth-token': token },
                 });
+
                 setInterviews(res.data);
             } catch (err) {
                 console.error('Failed to fetch interviews:', err);
@@ -1087,6 +1129,7 @@ const Home = ({ user }) => {
                 setLoading(false);
             }
         };
+
         fetchInterviews();
     }, [user]);
 
@@ -1097,7 +1140,7 @@ const Home = ({ user }) => {
             // Enhanced fuzzy search options:
             includeScore: true, // Show the match score
             threshold: 0.4,     // Fuzziness: 0.0 requires perfect match, 1.0 matches anything.
-                                // 0.4 is a good balance for spelling mistakes.
+            // 0.4 is a good balance for spelling mistakes.
             ignoreLocation: true, // Don't care about the index of the match (e.g., "zamon" should match "Amazon")
             distance: 100,      // Max distance from the approximate match (longer distance allows more typos)
             findAllMatches: true, // Find all matches for a pattern.
