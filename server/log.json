@@ -3,34 +3,6 @@
     {
       "url": "https://aixinterview.onrender.com",
       "status": 200,
-      "timestamp": "2025-06-01T08:32:28.888Z",
-      "message": "API Running",
-      "responseTime": 276
-    },
-    {
-      "url": "https://aixinterview.onrender.com",
-      "status": 200,
-      "timestamp": "2025-06-01T08:32:29.918Z",
-      "message": "API Running",
-      "responseTime": 294
-    },
-    {
-      "url": "https://aixinterview.onrender.com",
-      "status": 200,
-      "timestamp": "2025-06-01T08:32:30.907Z",
-      "message": "API Running",
-      "responseTime": 269
-    },
-    {
-      "url": "https://aixinterview.onrender.com",
-      "status": 200,
-      "timestamp": "2025-06-01T08:32:31.936Z",
-      "message": "API Running",
-      "responseTime": 286
-    },
-    {
-      "url": "https://aixinterview.onrender.com",
-      "status": 200,
       "timestamp": "2025-06-01T08:32:32.905Z",
       "message": "API Running",
       "responseTime": 246
@@ -349,37 +321,37 @@
       "timestamp": "2025-06-01T08:33:29.299Z",
       "message": "API Running",
       "responseTime": 351
+    },
+    {
+      "url": "https://aixinterview.onrender.com",
+      "status": "Error",
+      "timestamp": "2025-06-01T18:48:00.786Z",
+      "message": "axios is not defined",
+      "responseTime": 0
+    },
+    {
+      "url": "https://aixinterview.onrender.com",
+      "status": "Error",
+      "timestamp": "2025-06-01T18:48:02.133Z",
+      "message": "axios is not defined",
+      "responseTime": 0
+    },
+    {
+      "url": "https://aixinterview.onrender.com",
+      "status": "Error",
+      "timestamp": "2025-06-01T18:48:03.295Z",
+      "message": "axios is not defined",
+      "responseTime": 0
+    },
+    {
+      "url": "https://aixinterview.onrender.com",
+      "status": "Error",
+      "timestamp": "2025-06-01T18:48:04.460Z",
+      "message": "axios is not defined",
+      "responseTime": 0
     }
   ],
   "server2": [
-    {
-      "url": "https://aixinterview-hbui.onrender.com/",
-      "status": 200,
-      "timestamp": "2025-06-01T08:32:29.177Z",
-      "message": "API Running",
-      "responseTime": 289
-    },
-    {
-      "url": "https://aixinterview-hbui.onrender.com/",
-      "status": 200,
-      "timestamp": "2025-06-01T08:32:30.191Z",
-      "message": "API Running",
-      "responseTime": 273
-    },
-    {
-      "url": "https://aixinterview-hbui.onrender.com/",
-      "status": 200,
-      "timestamp": "2025-06-01T08:32:31.185Z",
-      "message": "API Running",
-      "responseTime": 278
-    },
-    {
-      "url": "https://aixinterview-hbui.onrender.com/",
-      "status": 200,
-      "timestamp": "2025-06-01T08:32:32.196Z",
-      "message": "API Running",
-      "responseTime": 260
-    },
     {
       "url": "https://aixinterview-hbui.onrender.com/",
       "status": 200,
@@ -701,37 +673,37 @@
       "timestamp": "2025-06-01T08:33:29.588Z",
       "message": "API Running",
       "responseTime": 289
+    },
+    {
+      "url": "https://aixinterview-hbui.onrender.com/",
+      "status": "Error",
+      "timestamp": "2025-06-01T18:48:00.786Z",
+      "message": "axios is not defined",
+      "responseTime": 0
+    },
+    {
+      "url": "https://aixinterview-hbui.onrender.com/",
+      "status": "Error",
+      "timestamp": "2025-06-01T18:48:02.133Z",
+      "message": "axios is not defined",
+      "responseTime": 0
+    },
+    {
+      "url": "https://aixinterview-hbui.onrender.com/",
+      "status": "Error",
+      "timestamp": "2025-06-01T18:48:03.295Z",
+      "message": "axios is not defined",
+      "responseTime": 0
+    },
+    {
+      "url": "https://aixinterview-hbui.onrender.com/",
+      "status": "Error",
+      "timestamp": "2025-06-01T18:48:04.460Z",
+      "message": "axios is not defined",
+      "responseTime": 0
     }
   ],
   "chatApp": [
-    {
-      "url": "https://www.chat.karthik.top/",
-      "status": 200,
-      "timestamp": "2025-06-01T08:32:29.428Z",
-      "message": "<!doctype html>\n<html lang=\"en\" >\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"i",
-      "responseTime": 251
-    },
-    {
-      "url": "https://www.chat.karthik.top/",
-      "status": 200,
-      "timestamp": "2025-06-01T08:32:30.476Z",
-      "message": "<!doctype html>\n<html lang=\"en\" >\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"i",
-      "responseTime": 285
-    },
-    {
-      "url": "https://www.chat.karthik.top/",
-      "status": 200,
-      "timestamp": "2025-06-01T08:32:31.480Z",
-      "message": "<!doctype html>\n<html lang=\"en\" >\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"i",
-      "responseTime": 295
-    },
-    {
-      "url": "https://www.chat.karthik.top/",
-      "status": 200,
-      "timestamp": "2025-06-01T08:32:32.479Z",
-      "message": "<!doctype html>\n<html lang=\"en\" >\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"i",
-      "responseTime": 283
-    },
     {
       "url": "https://www.chat.karthik.top/",
       "status": 200,
@@ -1053,6 +1025,94 @@
       "timestamp": "2025-06-01T08:33:29.897Z",
       "message": "<!doctype html>\n<html lang=\"en\" >\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"i",
       "responseTime": 309
+    },
+    {
+      "url": "https://www.chat.karthik.top/",
+      "status": "Error",
+      "timestamp": "2025-06-01T18:48:00.786Z",
+      "message": "axios is not defined",
+      "responseTime": 0
+    },
+    {
+      "url": "https://www.chat.karthik.top/",
+      "status": "Error",
+      "timestamp": "2025-06-01T18:48:02.133Z",
+      "message": "axios is not defined",
+      "responseTime": 0
+    },
+    {
+      "url": "https://www.chat.karthik.top/",
+      "status": "Error",
+      "timestamp": "2025-06-01T18:48:03.295Z",
+      "message": "axios is not defined",
+      "responseTime": 0
+    },
+    {
+      "url": "https://www.chat.karthik.top/",
+      "status": "Error",
+      "timestamp": "2025-06-01T18:48:04.460Z",
+      "message": "axios is not defined",
+      "responseTime": 0
+    }
+  ],
+  "RAGAPP": [
+    {
+      "url": "https://grokbot.streamlit.app/",
+      "status": "Error",
+      "timestamp": "2025-06-01T18:48:00.785Z",
+      "message": "axios is not defined",
+      "responseTime": 0
+    },
+    {
+      "url": "https://grokbot.streamlit.app/",
+      "status": "Error",
+      "timestamp": "2025-06-01T18:48:02.132Z",
+      "message": "axios is not defined",
+      "responseTime": 0
+    },
+    {
+      "url": "https://grokbot.streamlit.app/",
+      "status": "Error",
+      "timestamp": "2025-06-01T18:48:03.294Z",
+      "message": "axios is not defined",
+      "responseTime": 0
+    },
+    {
+      "url": "https://grokbot.streamlit.app/",
+      "status": "Error",
+      "timestamp": "2025-06-01T18:48:04.459Z",
+      "message": "axios is not defined",
+      "responseTime": 0
+    }
+  ],
+  "FlaskApp": [
+    {
+      "url": "https://collegify.pythonanywhere.com/",
+      "status": "Error",
+      "timestamp": "2025-06-01T18:48:00.786Z",
+      "message": "axios is not defined",
+      "responseTime": 0
+    },
+    {
+      "url": "https://collegify.pythonanywhere.com/",
+      "status": "Error",
+      "timestamp": "2025-06-01T18:48:02.133Z",
+      "message": "axios is not defined",
+      "responseTime": 0
+    },
+    {
+      "url": "https://collegify.pythonanywhere.com/",
+      "status": "Error",
+      "timestamp": "2025-06-01T18:48:03.295Z",
+      "message": "axios is not defined",
+      "responseTime": 0
+    },
+    {
+      "url": "https://collegify.pythonanywhere.com/",
+      "status": "Error",
+      "timestamp": "2025-06-01T18:48:04.460Z",
+      "message": "axios is not defined",
+      "responseTime": 0
     }
   ]
 }
