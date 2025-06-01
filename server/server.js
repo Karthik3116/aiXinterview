@@ -239,22 +239,55 @@ if (fs.existsSync(logFile)) {
 //   fs.writeFileSync(logFile, JSON.stringify(logData, null, 2));
 // };
 
+// const checkServers = async () => {
+//   for (const server of monitoredServers) {
+//     const serverLogs = logData[server.name] || [];
+
+//     const start = Date.now();
+//     try {
+//       const response = await fetch(server.url);
+//       const text = await response.text();
+//       const end = Date.now();
+
+//       serverLogs.push({
+//         url: server.url,
+//         status: response.status,
+//         timestamp: new Date().toISOString(),
+//         message: text.slice(0, 100),
+//         responseTime: end - start // in milliseconds
+//       });
+//     } catch (error) {
+//       const end = Date.now();
+//       serverLogs.push({
+//         url: server.url,
+//         status: 'Error',
+//         timestamp: new Date().toISOString(),
+//         message: error.message,
+//         responseTime: end - start
+//       });
+//     }
+
+//     logData[server.name] = serverLogs.slice(-50);
+//   }
+
+//   fs.writeFileSync(logFile, JSON.stringify(logData, null, 2));
+// };
+
 const checkServers = async () => {
   for (const server of monitoredServers) {
     const serverLogs = logData[server.name] || [];
-
     const start = Date.now();
+
     try {
-      const response = await fetch(server.url);
-      const text = await response.text();
+      const response = await axios.get(server.url, { maxRedirects: 5 });
       const end = Date.now();
 
       serverLogs.push({
         url: server.url,
         status: response.status,
         timestamp: new Date().toISOString(),
-        message: text.slice(0, 100),
-        responseTime: end - start // in milliseconds
+        message: response.data.slice(0, 100),
+        responseTime: end - start
       });
     } catch (error) {
       const end = Date.now();
@@ -272,8 +305,6 @@ const checkServers = async () => {
 
   fs.writeFileSync(logFile, JSON.stringify(logData, null, 2));
 };
-
-
 // ✅ Check servers every 5 minutes
 setInterval(checkServers, 60* 1000);
 checkServers(); // Initial check on startup
