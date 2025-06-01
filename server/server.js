@@ -187,7 +187,9 @@ app.get('/status', statusMonitor().pageRoute);
 const monitoredServers = [
   { name: 'server1', url: 'https://aixinterview.onrender.com' },
   { name: 'server2', url: 'https://aixinterview-hbui.onrender.com/' },
-  { name: 'chatApp', url: 'https://www.chat.karthik.top/' }
+  { name: 'chatApp', url: 'https://www.chat.karthik.top/' },
+  { name: 'FlaskApp', url: 'https://collegify.pythonanywhere.com/' },
+  
 ];
 
 const logFile = 'log.json';
