@@ -185,6 +185,7 @@ app.get('/status', statusMonitor().pageRoute);
 
 // ✅ Monitoring External Servers
 const monitoredServers = [
+  { name: 'RAGAPP', url: 'https://grokbot.streamlit.app/' },
   { name: 'server1', url: 'https://aixinterview.onrender.com' },
   { name: 'server2', url: 'https://aixinterview-hbui.onrender.com/' },
   { name: 'chatApp', url: 'https://www.chat.karthik.top/' },

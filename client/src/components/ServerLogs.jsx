@@ -311,7 +311,7 @@ const ServerLogs = () => {
                 📊 Real-time Server Monitor
             </h2>
             <p className="text-base text-gray-600 text-center mb-8">
-                Visualizing network health and performance. Data from: <code className="bg-gray-200 px-2 py-1 rounded text-sm">{baseUrl}/details</code>
+            
             </p>
 
             {Object.entries(logs).length === 0 && (
