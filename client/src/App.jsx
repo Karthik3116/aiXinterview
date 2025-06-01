@@ -350,6 +350,8 @@ import Interview from './pages/Interview';
 import Feedback from './pages/Feedback';
 import GuestLanding from './pages/GuestLanding';
 import Settings from './pages/Settings';
+import ServerLogs from './components/ServerLogs';
+
 import { getWorkingApiBaseUrl } from './utils/apiBase';
 
 
@@ -533,6 +535,8 @@ const App = () => {
           path="/interview/:interviewId/feedback"
           element={user ? <Feedback axiosInstance={axiosInstance} /> : <Navigate to="/login" />}
         />
+        <Route path="/logs" element={ <ServerLogs />} />
+
         <Route path="*" element={user ? <Navigate to="/" /> : <Navigate to="/login" />} />
       </Routes>
       <ToastContainer

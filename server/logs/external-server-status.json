@@ -1,0 +1,23 @@
+[
+  {
+    "name": "server1",
+    "url": "https://aixinterview.onrender.com",
+    "status": 200,
+    "timestamp": "2025-06-01T08:02:07.713Z",
+    "message": "Status: 200, Body: API Running"
+  },
+  {
+    "name": "server2",
+    "url": "https://aixinterview-hbui.onrender.com/",
+    "status": 200,
+    "timestamp": "2025-06-01T08:02:08.217Z",
+    "message": "Status: 200, Body: API Running"
+  },
+  {
+    "name": "chatApp",
+    "url": "https://www.chat.karthik.top/",
+    "status": 200,
+    "timestamp": "2025-06-01T08:02:08.615Z",
+    "message": "Status: 200, Body: <!doctype html>\n<html lang=\"en\" >\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"image/svg+xml\" href=\"/ico.svg\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scal"
+  }
+]

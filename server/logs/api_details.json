@@ -1,0 +1,128 @@
+[
+  {
+    "timestamp": "2025-06-01T07:49:03.995Z",
+    "name": "GET /details",
+    "url": "/details",
+    "statusCode": 200,
+    "response": []
+  },
+  {
+    "timestamp": "2025-06-01T07:49:07.605Z",
+    "name": "GET /details",
+    "url": "/details",
+    "statusCode": 200,
+    "response": [
+      {
+        "timestamp": "2025-06-01T07:49:03.995Z",
+        "name": "GET /details",
+        "url": "/details",
+        "statusCode": 200,
+        "response": []
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-01T07:49:35.356Z",
+    "name": "GET /details",
+    "url": "/details",
+    "statusCode": 200,
+    "response": [
+      {
+        "timestamp": "2025-06-01T07:49:03.995Z",
+        "name": "GET /details",
+        "url": "/details",
+        "statusCode": 200,
+        "response": []
+      },
+      {
+        "timestamp": "2025-06-01T07:49:07.605Z",
+        "name": "GET /details",
+        "url": "/details",
+        "statusCode": 200,
+        "response": [
+          {
+            "timestamp": "2025-06-01T07:49:03.995Z",
+            "name": "GET /details",
+            "url": "/details",
+            "statusCode": 200,
+            "response": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "timestamp": "2025-06-01T07:49:53.660Z",
+    "name": "GET /",
+    "url": "/",
+    "statusCode": 200,
+    "response": "API Running"
+  },
+  {
+    "timestamp": "2025-06-01T07:49:56.994Z",
+    "name": "GET /details",
+    "url": "/details",
+    "statusCode": 200,
+    "response": [
+      {
+        "timestamp": "2025-06-01T07:49:03.995Z",
+        "name": "GET /details",
+        "url": "/details",
+        "statusCode": 200,
+        "response": []
+      },
+      {
+        "timestamp": "2025-06-01T07:49:07.605Z",
+        "name": "GET /details",
+        "url": "/details",
+        "statusCode": 200,
+        "response": [
+          {
+            "timestamp": "2025-06-01T07:49:03.995Z",
+            "name": "GET /details",
+            "url": "/details",
+            "statusCode": 200,
+            "response": []
+          }
+        ]
+      },
+      {
+        "timestamp": "2025-06-01T07:49:35.356Z",
+        "name": "GET /details",
+        "url": "/details",
+        "statusCode": 200,
+        "response": [
+          {
+            "timestamp": "2025-06-01T07:49:03.995Z",
+            "name": "GET /details",
+            "url": "/details",
+            "statusCode": 200,
+            "response": []
+          },
+          {
+            "timestamp": "2025-06-01T07:49:07.605Z",
+            "name": "GET /details",
+            "url": "/details",
+            "statusCode": 200,
+            "response": [
+              {
+                "timestamp": "2025-06-01T07:49:03.995Z",
+                "name": "GET /details",
+                "url": "/details",
+                "statusCode": 200,
+                "response": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "timestamp": "2025-06-01T07:49:53.660Z",
+        "name": "GET /",
+        "url": "/",
+        "statusCode": 200,
+        "response": "API Running"
+      }
+    ]
+  }
+]
