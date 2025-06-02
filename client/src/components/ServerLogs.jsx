@@ -38,7 +38,7 @@ const ServerLogs = () => {
       const dynamicBaseUrl = await getWorkingApiBaseUrl();
       setBaseUrl(dynamicBaseUrl);
 
-      const res = await fetch(`http://localhost:5000/details`);
+      const res = await fetch(`${dynamicBaseUrl}/details`);
       if (!res.ok) {
         const text = await res.text();
         throw new Error(
