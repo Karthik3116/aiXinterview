@@ -1,3 +1,4 @@
 git add .
 git commit -m "version-5 logs"
 git push origin rollback-ui:main --force
+${dynamicBaseUrl}/details

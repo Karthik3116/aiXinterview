@@ -1,498 +1,581 @@
-// import React, { useEffect, useState } from 'react';
-// import { getWorkingApiBaseUrl } from '../utils/apiBase';
-// import { FaServer, FaClock, FaExclamationCircle, FaCheckCircle } from 'react-icons/fa';
-
-// const ServerLogs = () => {
-//   const [logs, setLogs] = useState({});
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState('');
-//   const [baseUrl, setBaseUrl] = useState('');
-
-//   useEffect(() => {
-//     const fetchLogs = async () => {
-//       try {
-//         const url = await getWorkingApiBaseUrl();
-//         setBaseUrl(url);
-
-//         const res = await fetch(`http://localhost:5000/details`);
-//         if (!res.ok) throw new Error('Failed to fetch logs');
-//         const data = await res.json();
-//         setLogs(data);
-//       } catch (err) {
-//         setError('Unable to fetch logs. Please try again later.');
-//         console.error(err);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//     fetchLogs();
-//   }, []);
-
-//   if (loading) return <div className="p-4 text-blue-600">Loading server logs...</div>;
-//   if (error) return <div className="p-4 text-red-600">{error}</div>;
-
-//   return (
-//     <div className="p-4 max-w-5xl mx-auto">
-//       <h2 className="text-2xl font-bold mb-4 text-center">📊 Server Logs</h2>
-//       <p className="text-sm text-gray-500 text-center mb-4">Source: <code>{baseUrl}/details</code></p>
-
-//       {Object.entries(logs).map(([serverName, entries]) => (
-//         <div key={serverName} className="mb-8 bg-white rounded-xl shadow p-4 border">
-//           <h3 className="text-xl font-semibold flex items-center gap-2 mb-3">
-//             <FaServer className="text-indigo-600" />
-//             {serverName}
-//           </h3>
-
-//           <div className="max-h-96 overflow-y-auto space-y-3">
-//             {entries.slice().reverse().map((entry, index) => (
-//               <div
-//                 key={index}
-//                 className={`p-3 rounded-md border ${
-//                   entry.status === 200
-//                     ? 'bg-green-50 border-green-400'
-//                     : entry.status === 'Error'
-//                     ? 'bg-red-50 border-red-400'
-//                     : 'bg-yellow-50 border-yellow-400'
-//                 }`}
-//               >
-//                 <div className="flex items-center gap-2 text-sm font-medium">
-//                   {entry.status === 200 ? (
-//                     <FaCheckCircle className="text-green-500" />
-//                   ) : (
-//                     <FaExclamationCircle className="text-red-500" />
-//                   )}
-//                   <span>{entry.status}</span>
-//                 </div>
-//                 <div className="text-sm text-gray-700 mt-1">
-//                   <span className="font-semibold">Message:</span> {entry.message}
-//                 </div>
-//                 <div className="text-xs text-gray-500 mt-1 flex items-center gap-1">
-//                   <FaClock />
-//                   {new Date(entry.timestamp).toLocaleString()}
-//                 </div>
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// };
-
-// export default ServerLogs;
-
-// import React, { useEffect, useState } from 'react';
-// import { getWorkingApiBaseUrl } from '../utils/apiBase';
-// import { FaServer, FaClock, FaExclamationCircle, FaCheckCircle } from 'react-icons/fa';
-// import {
-//   LineChart,
-//   Line,
-//   XAxis,
-//   YAxis,
-//   Tooltip,
-//   CartesianGrid,
-//   ResponsiveContainer,
-// } from 'recharts';
-
-// const ServerLogs = () => {
-//   const [logs, setLogs] = useState({});
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState('');
-//   const [baseUrl, setBaseUrl] = useState('');
-
-//   useEffect(() => {
-//     const fetchLogs = async () => {
-//       try {
-//         const url = await getWorkingApiBaseUrl();
-//         setBaseUrl(url);
-//         const res = await fetch(`http://localhost:5000/details`);
-//         if (!res.ok) throw new Error('Failed to fetch logs');
-//         const data = await res.json();
-//         setLogs(data);
-//       } catch (err) {
-//         setError('Unable to fetch logs. Please try again later.');
-//         console.error(err);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//     fetchLogs();
-//     const intervalId = setInterval(fetchLogs, 5000); // refresh every 5 seconds
-//     return () => clearInterval(intervalId);
-//   }, []);
-
-//   if (loading) return <div className="p-4 text-blue-600">Loading server logs...</div>;
-//   if (error) return <div className="p-4 text-red-600">{error}</div>;
-
-//   return (
-//     <div className="p-4 max-w-6xl mx-auto">
-//       <h2 className="text-2xl font-bold mb-4 text-center">📊 Server Logs (Latency)</h2>
-//       <p className="text-sm text-gray-500 text-center mb-4">
-//         Source: <code>{baseUrl}/details</code>
-//       </p>
-
-//       {Object.entries(logs).map(([serverName, entries]) => (
-//         <div key={serverName} className="mb-10 bg-white rounded-xl shadow p-4 border">
-//           <h3 className="text-xl font-semibold flex items-center gap-2 mb-3">
-//             <FaServer className="text-indigo-600" />
-//             {serverName}
-//           </h3>
-
-//           <div className="max-h-96 overflow-y-auto space-y-3">
-//             {entries.slice().reverse().map((entry, index) => (
-//               <div
-//                 key={index}
-//                 className={`p-3 rounded-md border ${
-//                   entry.status === 200
-//                     ? 'bg-green-50 border-green-400'
-//                     : entry.status === 'Error'
-//                     ? 'bg-red-50 border-red-400'
-//                     : 'bg-yellow-50 border-yellow-400'
-//                 }`}
-//               >
-//                 <div className="flex items-center gap-2 text-sm font-medium">
-//                   {entry.status === 200 ? (
-//                     <FaCheckCircle className="text-green-500" />
-//                   ) : (
-//                     <FaExclamationCircle className="text-red-500" />
-//                   )}
-//                   <span>{entry.status}</span>
-//                   {entry.responseTime !== undefined && (
-//                     <span className="ml-2 text-xs text-gray-600">
-//                       ({entry.responseTime} ms)
-//                     </span>
-//                   )}
-//                 </div>
-//                 <div className="text-sm text-gray-700 mt-1">
-//                   <span className="font-semibold">Message:</span> {entry.message}
-//                 </div>
-//                 <div className="text-xs text-gray-500 mt-1 flex items-center gap-1">
-//                   <FaClock />
-//                   {new Date(entry.timestamp).toLocaleString()}
-//                 </div>
-//               </div>
-//             ))}
-//           </div>
-
-//           {/* Graph for Response Time */}
-//           <div className="h-64 mt-4">
-//             <ResponsiveContainer width="100%" height="100%">
-//               <LineChart
-//                 data={entries
-//                   .slice(-20)
-//                   .filter((log) => log.responseTime !== undefined)
-//                   .map((log) => ({
-//                     time: new Date(log.timestamp).toLocaleTimeString(),
-//                     responseTime: log.responseTime,
-//                   }))}
-//               >
-//                 <CartesianGrid strokeDasharray="3 3" />
-//                 <XAxis dataKey="time" />
-//                 <YAxis unit="ms" allowDecimals={false} />
-//                 <Tooltip />
-//                 <Line
-//                   type="monotone"
-//                   dataKey="responseTime"
-//                   stroke="#10b981" // Tailwind green-500
-//                   strokeWidth={2}
-//                   dot={false}
-//                 />
-//               </LineChart>
-//             </ResponsiveContainer>
-//           </div>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// };
-
-// export default ServerLogs;
-
 import React, { useEffect, useState, useCallback } from 'react';
-import { getWorkingApiBaseUrl } from '../utils/apiBase'; // Assuming this correctly resolves your API base URL
-import { FaServer, FaClock, FaExclamationCircle, FaCheckCircle, FaSpinner } from 'react-icons/fa';
+import { getWorkingApiBaseUrl } from '../utils/apiBase'; // Adjust as needed
 import {
-    LineChart,
-    Line,
-    XAxis,
-    YAxis,
-    Tooltip,
-    CartesianGrid,
-    ResponsiveContainer,
-    Legend // Import Legend for chart legends
+  FaServer,
+  FaClock,
+  FaExclamationCircle,
+  FaCheckCircle,
+  FaSpinner,
+  FaSignal,
+  FaChartLine,
+  FaNetworkWired,
+} from 'react-icons/fa';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  ResponsiveContainer,
+  Legend,
 } from 'recharts';
 
+// Utility CSS classes for cards
+// Added `h-full` so that nested fixed‐height chart containers render correctly
+const CARD_CONTAINER_CLASSES =
+  'bg-white rounded-2xl shadow-lg border border-gray-200 p-6 flex flex-col h-full';
+
 const ServerLogs = () => {
-    const [logs, setLogs] = useState({});
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
-    const [baseUrl, setBaseUrl] = useState('');
+  const [logs, setLogs] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [baseUrl, setBaseUrl] = useState('');
 
-    // useCallback memoizes the function, preventing unnecessary re-creations
-    const fetchLogs = useCallback(async () => {
-        try {
-            // Dynamically get API base URL for flexibility
-            const dynamicBaseUrl = await getWorkingApiBaseUrl();
-            setBaseUrl(dynamicBaseUrl);
+  // Fetch logs from backend and process them
+  const fetchLogs = useCallback(async () => {
+    try {
+      const dynamicBaseUrl = await getWorkingApiBaseUrl();
+      setBaseUrl(dynamicBaseUrl);
 
-            // Fetch logs from the backend
-            // IMPORTANT: Use dynamicBaseUrl here, not hardcoded 'http://localhost:5000'
-            const res = await fetch(`${dynamicBaseUrl}/details`);
+      const res = await fetch(`${dynamicBaseUrl}/details`);
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(
+          `Failed to fetch logs: ${res.status} ${res.statusText} - ${text}`
+        );
+      }
+      const data = await res.json();
 
-            if (!res.ok) {
-                const errorDetail = await res.text();
-                throw new Error(`Failed to fetch logs: ${res.status} ${res.statusText} - ${errorDetail}`);
-            }
-
-            const data = await res.json();
-
-            // Process fetched data to ensure proper format for React state and charts
-            const processedData = {};
-            Object.keys(data).forEach(serverName => {
-                // Ensure data[serverName] is an array before processing
-                if (Array.isArray(data[serverName])) {
-                    processedData[serverName] = data[serverName].map(entry => ({
-                        ...entry,
-                        // Ensure timestamp is a Date object for correct sorting and display
-                        timestamp: new Date(entry.timestamp)
-                    }));
-                } else {
-                    console.warn(`Unexpected data type for server ${serverName}:`, data[serverName]);
-                    processedData[serverName] = []; // Default to empty array if unexpected
-                }
-            });
-            setLogs(processedData);
-            setError(''); // Clear any previous errors on successful fetch
-        } catch (err) {
-            setError(`Unable to fetch logs: ${err.message}. Please check console for more details.`);
-            console.error('Error fetching logs:', err);
-        } finally {
-            setLoading(false);
+      const processedData = {};
+      Object.keys(data).forEach((serverName) => {
+        if (Array.isArray(data[serverName])) {
+          processedData[serverName] = data[serverName].map((entry) => ({
+            ...entry,
+            timestamp: new Date(entry.timestamp),
+          }));
+        } else {
+          processedData[serverName] = [];
         }
-    }, []); // No dependencies needed for useCallback as getWorkingApiBaseUrl is stable
+      });
 
-    // Effect hook for initial data fetch and setting up polling
-    useEffect(() => {
-        fetchLogs(); // Fetch data once on component mount
-
-        // Set up polling interval (e.g., every 5 seconds for "live" feel)
-        const intervalId = setInterval(fetchLogs, 5000); // Refresh every 5 seconds
-
-        // Cleanup function: clear the interval when the component unmounts
-        return () => clearInterval(intervalId);
-    }, [fetchLogs]); // Re-run effect if fetchLogs changes (which it won't due to useCallback)
-
-    // --- UI Rendering based on Loading/Error states ---
-    if (loading) {
-        return (
-            <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-blue-600">
-                <FaSpinner className="animate-spin text-4xl mb-4" />
-                <p className="text-lg font-medium">Loading server logs...</p>
-            </div>
-        );
+      setLogs(processedData);
+      setError('');
+    } catch (err) {
+      setError(`Unable to fetch logs: ${err.message}.`);
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
+  }, []);
 
-    if (error) {
-        return (
-            <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-red-600 p-8">
-                <FaExclamationCircle className="text-5xl mb-4" />
-                <h3 className="text-2xl font-bold mb-2">Error Loading Data</h3>
-                <p className="text-lg text-center max-w-md">{error}</p>
-                <p className="text-sm text-gray-500 mt-4">Please ensure your backend is running and accessible from: <code>{baseUrl}/details</code></p>
-            </div>
-        );
-    }
+  useEffect(() => {
+    fetchLogs();
+    const intervalId = setInterval(fetchLogs, 5000); // Refresh every 5 seconds
+    return () => clearInterval(intervalId);
+  }, [fetchLogs]);
 
+  // Helper functions to compute summary metrics
+  const computeSummary = () => {
+    const serverNames = Object.keys(logs);
+    const totalServers = serverNames.length;
+
+    let onlineCount = 0;
+    let totalResponseSum = 0;
+    let responseCount = 0;
+
+    serverNames.forEach((name) => {
+      const entries = logs[name];
+      if (Array.isArray(entries) && entries.length > 0) {
+        const latest = entries[entries.length - 1];
+        if (latest.status === 200) onlineCount++;
+        if (
+          typeof latest.responseTime === 'number' &&
+          latest.responseTime >= 0
+        ) {
+          totalResponseSum += latest.responseTime;
+          responseCount++;
+        }
+      }
+    });
+
+    const averageResponse =
+      responseCount > 0 ? totalResponseSum / responseCount : 0;
+
+    return {
+      totalServers,
+      onlineCount,
+      offlineCount: totalServers - onlineCount,
+      averageResponse: averageResponse.toFixed(2),
+    };
+  };
+
+  // Build a global time series of average response time across all servers
+  const buildGlobalChartData = () => {
+    // Align timestamps by rounding to minute: "HH:MM"
+    const allEntries = [];
+    Object.values(logs).forEach((entries) => {
+      entries.forEach((entry) => {
+        if (
+          typeof entry.responseTime === 'number' &&
+          entry.responseTime >= 0
+        ) {
+          const timeKey = entry.timestamp
+            .toLocaleTimeString('en-US', { hour12: false })
+            .split(':')
+            .slice(0, 2)
+            .join(':'); // e.g. "14:05"
+          allEntries.push({ timeKey, responseTime: entry.responseTime });
+        }
+      });
+    });
+
+    // Group by timeKey
+    const grouped = {};
+    allEntries.forEach(({ timeKey, responseTime }) => {
+      if (!grouped[timeKey]) grouped[timeKey] = [];
+      grouped[timeKey].push(responseTime);
+    });
+
+    // Compute average for each timeKey and sort chronologically
+    const result = Object.keys(grouped)
+      .map((t) => {
+        const arr = grouped[t];
+        const sum = arr.reduce((a, b) => a + b, 0);
+        const avg = sum / arr.length;
+        return { time: t, avgResponse: Number(avg.toFixed(2)) };
+      })
+      .sort((a, b) => {
+        const [hA, mA] = a.time.split(':').map(Number);
+        const [hB, mB] = b.time.split(':').map(Number);
+        return hA === hB ? mA - mB : hA - hB;
+      });
+
+    return result;
+  };
+
+  if (loading) {
     return (
-        <div className="p-6 md:p-10 max-w-7xl mx-auto bg-gray-50 min-h-screen">
-            <h2 className="text-3xl md:text-4xl font-extrabold mb-6 text-center text-gray-800 tracking-tight">
-                📊 Real-time Server Monitor
-            </h2>
-            <p className="text-base text-gray-600 text-center mb-8">
-            
-            </p>
-
-            {Object.entries(logs).length === 0 && (
-                <div className="text-center text-gray-600 p-10 bg-white rounded-lg shadow-md mt-8">
-                    <p className="text-lg font-semibold">No server logs available yet.</p>
-                    <p className="text-sm text-gray-500 mt-2">Waiting for the first check to complete or log file might be empty.</p>
-                </div>
-            )}
-
-            {Object.entries(logs).map(([serverName, entries]) => {
-                // Ensure entries is an array and sort them for chronological order
-                const sortedEntries = Array.isArray(entries)
-                    ? [...entries].sort((a, b) => a.timestamp.getTime() - b.timestamp.getTime())
-                    : [];
-
-                // Get the most recent entry for current status display
-                const latestEntry = sortedEntries.length > 0 ? sortedEntries[sortedEntries.length - 1] : null;
-
-                // Prepare data for Recharts graphs
-                // Slice to get only the last 'N' entries for cleaner charts
-                const chartData = sortedEntries.slice(-50).map((log) => ({
-                    time: log.timestamp.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
-                    // Convert status to 1 for success (200) and 0 for error/other for plotting
-                    status: log.status === 200 ? 1 : 0,
-                    // Only include responseTime if it's a valid number
-                    responseTime: typeof log.responseTime === 'number' && log.responseTime !== -1 ? log.responseTime : null,
-                }));
-
-                return (
-                    <div key={serverName} className="mb-12 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 p-6 border border-gray-200">
-                        {/* Server Header */}
-                        <h3 className="text-2xl font-bold flex items-center gap-3 mb-4 text-gray-800">
-                            <FaServer className="text-indigo-600 text-3xl" />
-                            {serverName}
-                            {latestEntry && (
-                                <span
-                                    className={`ml-4 text-base font-semibold px-4 py-1 rounded-full shadow-sm
-                                        ${latestEntry.status === 200
-                                            ? 'bg-green-100 text-green-700'
-                                            : latestEntry.status === 'Error'
-                                                ? 'bg-red-100 text-red-700'
-                                                : 'bg-yellow-100 text-yellow-700'
-                                        }`}
-                                >
-                                    {latestEntry.status === 200 ? 'Online' : 'Offline / Error'}
-                                </span>
-                            )}
-                        </h3>
-
-                        {/* Current Status Details */}
-                        {latestEntry && (
-                            <div className="mb-6 text-gray-700 text-base flex flex-wrap items-center gap-x-6 gap-y-2">
-                                <p className="flex items-center gap-2">
-                                    <FaClock className="text-gray-500" />
-                                    <span className="font-medium">Last Checked:</span> {latestEntry.timestamp.toLocaleString()}
-                                </p>
-                                {latestEntry.responseTime !== -1 && typeof latestEntry.responseTime === 'number' && (
-                                    <p className="flex items-center gap-2">
-                                        <span className="font-medium">Response Time:</span>
-                                        <span className="font-semibold text-indigo-600">{latestEntry.responseTime.toFixed(2)} ms</span>
-                                    </p>
-                                )}
-                                <p className="flex items-center gap-2">
-                                     <span className="font-medium">Message:</span> <span className="italic">{latestEntry.message}</span>
-                                </p>
-                            </div>
-                        )}
-
-                        {/* Response Time Graph */}
-                        <h4 className="text-xl font-semibold mb-3 text-gray-800">Response Time (Last 50 Checks)</h4>
-                        <div className="bg-gray-50 p-4 rounded-lg shadow-inner h-72 mb-8">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <LineChart
-                                    data={chartData.filter(d => d.responseTime !== null)} // Only plot if responseTime is available
-                                    margin={{ top: 10, right: 30, left: 0, bottom: 5 }}
-                                >
-                                    <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-                                    <XAxis dataKey="time" interval="preserveStartEnd" tickFormatter={(tick) => tick.split(':').slice(0, 2).join(':')} />
-                                    <YAxis
-                                        unit="ms"
-                                        allowDecimals={false}
-                                        label={{ value: 'Response Time (ms)', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle' } }}
-                                        tickFormatter={(value) => `${value}`}
-                                    />
-                                    <Tooltip
-                                        formatter={(value, name, props) => [`${value.toFixed(2)} ms`, 'Response Time']}
-                                        labelFormatter={(label) => `Time: ${label}`}
-                                    />
-                                    <Line
-                                        type="monotone"
-                                        dataKey="responseTime"
-                                        stroke="#22C55E" // Tailwind green-500
-                                        strokeWidth={3}
-                                        dot={{ r: 4 }} // Smaller dots for cleaner look
-                                        activeDot={{ r: 8, strokeWidth: 2, fill: '#FFFFFF', stroke: '#22C55E' }}
-                                    />
-                                </LineChart>
-                            </ResponsiveContainer>
-                        </div>
-
-                        {/* Server Status Graph */}
-                        <h4 className="text-xl font-semibold mb-3 text-gray-800">Server Status (Last 50 Checks)</h4>
-                        <div className="bg-gray-50 p-4 rounded-lg shadow-inner h-72">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <LineChart
-                                    data={chartData}
-                                    margin={{ top: 10, right: 30, left: 0, bottom: 5 }}
-                                >
-                                    <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-                                    <XAxis dataKey="time" interval="preserveStartEnd" tickFormatter={(tick) => tick.split(':').slice(0, 2).join(':')} />
-                                    <YAxis
-                                        domain={[0, 1]}
-                                        ticks={[0, 1]}
-                                        label={{ value: 'Status (0=Down, 1=Up)', angle: -90, position: 'insideLeft', style: { textAnchor: 'middle' } }}
-                                        tickFormatter={(value) => (value === 1 ? 'Up' : 'Down')}
-                                    />
-                                    <Tooltip
-                                        formatter={(value, name, props) => [(value === 1 ? 'Online' : 'Offline/Error'), 'Status']}
-                                        labelFormatter={(label) => `Time: ${label}`}
-                                    />
-                                    <Line
-                                        type="stepAfter" // Use stepAfter for clear status changes
-                                        dataKey="status"
-                                        stroke="#3B82F6" // Tailwind blue-500
-                                        strokeWidth={3}
-                                        dot={{ r: 4 }}
-                                        activeDot={{ r: 8, strokeWidth: 2, fill: '#FFFFFF', stroke: '#3B82F6' }}
-                                    />
-                                </LineChart>
-                            </ResponsiveContainer>
-                        </div>
-
-                        {/* Recent Log Entries */}
-                        <h4 className="text-xl font-semibold mt-8 mb-3 text-gray-800">Recent Activity Log</h4>
-                        <div className="max-h-80 overflow-y-auto space-y-4 p-4 border border-gray-200 rounded-lg bg-white shadow-sm">
-                            {sortedEntries.slice().reverse().map((entry, index) => ( // Displaying latest first
-                                <div
-                                    key={entry.timestamp.toISOString() + entry.url} // Use a unique key for list items
-                                    className={`p-4 rounded-lg shadow-sm border
-                                        ${entry.status === 200
-                                            ? 'bg-green-50 border-green-400'
-                                            : entry.status === 'Error'
-                                                ? 'bg-red-50 border-red-400'
-                                                : 'bg-yellow-50 border-yellow-400'
-                                        }`}
-                                >
-                                    <div className="flex items-center justify-between text-sm font-medium mb-1">
-                                        <div className="flex items-center gap-2">
-                                            {entry.status === 200 ? (
-                                                <FaCheckCircle className="text-green-500 text-lg" />
-                                            ) : (
-                                                <FaExclamationCircle className="text-red-500 text-lg" />
-                                            )}
-                                            <span className={`text-lg ${entry.status === 200 ? 'text-green-700' : 'text-red-700'}`}>
-                                                {entry.status === 200 ? 'SUCCESS' : 'ERROR'} ({entry.status})
-                                            </span>
-                                        </div>
-                                        {typeof entry.responseTime === 'number' && entry.responseTime !== -1 && (
-                                            <span className="text-gray-600 font-normal">
-                                                Response: <span className="font-semibold">{entry.responseTime.toFixed(2)} ms</span>
-                                            </span>
-                                        )}
-                                    </div>
-                                    <p className="text-sm text-gray-800 font-medium mb-1">
-                                        <span className="font-semibold text-gray-600">Message:</span> <span className="break-all">{entry.message}</span>
-                                    </p>
-                                    <p className="text-xs text-gray-500 flex items-center gap-1">
-                                        <FaClock />
-                                        {entry.timestamp.toLocaleString()}
-                                    </p>
-                                </div>
-                            ))}
-                            {sortedEntries.length === 0 && (
-                                <p className="text-gray-500 text-center py-4">No recent activity logged for this server.</p>
-                            )}
-                        </div>
-                    </div>
-                );
-            })}
-        </div>
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-blue-600">
+        <FaSpinner className="animate-spin text-4xl mb-4" />
+        <p className="text-lg font-medium">Loading ServerLogs...</p>
+      </div>
     );
+  }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-red-600 p-8">
+        <FaExclamationCircle className="text-5xl mb-4" />
+        <h3 className="text-2xl font-bold mb-2">Error Loading ServerLogs</h3>
+        <p className="text-lg text-center max-w-md">{error}</p>
+        <p className="text-sm text-gray-500 mt-4">
+          Ensure backend is running at: <code>{baseUrl}/details</code>
+        </p>
+      </div>
+    );
+  }
+
+  // Compute summary and global data
+  const { totalServers, onlineCount, offlineCount, averageResponse } =
+    computeSummary();
+  const globalChartData = buildGlobalChartData();
+
+  return (
+    <div className="min-h-screen bg-gray-50 p-8">
+      {/* ===== ServerLogs Header ===== */}
+      <header className="mb-8">
+        <h1 className="text-5xl font-extrabold text-center text-gray-800 mb-2">
+          🌐 Server Monitoring Dashboard
+        </h1>
+        <p className="text-center text-gray-600">
+          Real-time overview of uptime and response times
+        </p>
+      </header>
+
+      {/* ===== Summary Metrics ===== */}
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 flex items-center gap-4">
+          <FaNetworkWired className="text-indigo-600 text-4xl" />
+          <div>
+            <p className="text-sm text-gray-500">Total Servers</p>
+            <p className="text-3xl font-bold text-gray-800">{totalServers}</p>
+          </div>
+        </div>
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 flex items-center gap-4">
+          <FaCheckCircle className="text-green-600 text-4xl" />
+          <div>
+            <p className="text-sm text-gray-500">Online</p>
+            <p className="text-3xl font-bold text-green-800">{onlineCount}</p>
+          </div>
+        </div>
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 flex items-center gap-4">
+          <FaExclamationCircle className="text-red-600 text-4xl" />
+          <div>
+            <p className="text-sm text-gray-500">Offline / Error</p>
+            <p className="text-3xl font-bold text-red-800">{offlineCount}</p>
+          </div>
+        </div>
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 flex items-center gap-4">
+          <FaSignal className="text-yellow-600 text-4xl" />
+          <div>
+            <p className="text-sm text-gray-500">Avg. Response Time</p>
+            <p className="text-3xl font-bold text-yellow-800">
+              {averageResponse} ms
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== Global Response Time Chart ===== */}
+      <section className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 mb-12">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-4 flex items-center gap-2">
+          <FaChartLine className="text-indigo-600" />
+          Global Avg. Response Time
+        </h2>
+        <div className="h-64 bg-gray-50 rounded-lg p-4 shadow-inner">
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={globalChartData}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+              <XAxis
+                dataKey="time"
+                tickFormatter={(tick) => tick}
+                style={{ fontSize: '0.75rem' }}
+              />
+              <YAxis
+                unit="ms"
+                allowDecimals={false}
+                tickFormatter={(v) => v}
+                style={{ fontSize: '0.75rem' }}
+              />
+              <Tooltip
+                formatter={(value) => [`${value.toFixed(2)} ms`, 'Avg Response']}
+                labelFormatter={(label) => `Time: ${label}`}
+              />
+              <Legend verticalAlign="top" />
+              <Line
+                type="monotone"
+                dataKey="avgResponse"
+                name="Avg Response"
+                stroke="#10B981"
+                strokeWidth={2}
+                dot={false}
+                activeDot={{
+                  r: 6,
+                  strokeWidth: 2,
+                  fill: '#FFFFFF',
+                  stroke: '#10B981',
+                }}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      </section>
+
+      {/* ===== Per-Server Detail Panels ===== */}
+      <section>
+        <h2 className="text-3xl font-bold text-gray-800 mb-6">
+          Individual Server Details
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {Object.entries(logs).map(([serverName, entries]) => {
+            const sortedEntries = Array.isArray(entries)
+              ? [...entries].sort((a, b) => a.timestamp - b.timestamp)
+              : [];
+            const latestEntry =
+              sortedEntries.length > 0
+                ? sortedEntries[sortedEntries.length - 1]
+                : null;
+
+            // Build per-server chart data (last 50)
+            const chartData = sortedEntries.slice(-50).map((log) => ({
+              time: log.timestamp
+                .toLocaleTimeString('en-US', { hour12: false })
+                .split(':')
+                .slice(0, 2)
+                .join(':'), // e.g. "14:05"
+              status: log.status === 200 ? 1 : 0,
+              responseTime:
+                typeof log.responseTime === 'number' && log.responseTime >= 0
+                  ? log.responseTime
+                  : null,
+            }));
+
+            // Compute moving average for each entry
+            const movingAvgData = [];
+            let sumSoFar = 0;
+            let countSoFar = 0;
+            chartData.forEach((item) => {
+              if (item.responseTime !== null) {
+                sumSoFar += item.responseTime;
+                countSoFar += 1;
+                movingAvgData.push({
+                  time: item.time,
+                  movingAvg: Number((sumSoFar / countSoFar).toFixed(2)),
+                });
+              }
+            });
+
+            return (
+              <div key={serverName} className={CARD_CONTAINER_CLASSES}>
+                {/* Header */}
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <FaServer className="text-indigo-600 text-3xl" />
+                    <h3 className="text-2xl font-bold text-gray-800">
+                      {serverName}
+                    </h3>
+                  </div>
+                  {latestEntry && (
+                    <span
+                      className={`text-base font-semibold px-4 py-1 rounded-full shadow-sm ${
+                        latestEntry.status === 200
+                          ? 'bg-green-100 text-green-800'
+                          : latestEntry.status === 'Error'
+                          ? 'bg-red-100 text-red-800'
+                          : 'bg-yellow-100 text-yellow-800'
+                      }`}
+                    >
+                      {latestEntry.status === 200
+                        ? 'Online'
+                        : 'Offline/Error'}
+                    </span>
+                  )}
+                </div>
+
+                {/* Top Stats */}
+                {latestEntry && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                    <div className="flex items-center gap-2 text-gray-700">
+                      <FaClock className="text-gray-500" />
+                      <div>
+                        <p className="text-sm font-medium">Last Checked</p>
+                        <p className="text-base">
+                          {latestEntry.timestamp.toLocaleString()}
+                        </p>
+                      </div>
+                    </div>
+                    {typeof latestEntry.responseTime === 'number' &&
+                      latestEntry.responseTime >= 0 && (
+                        <div className="flex items-center gap-2 text-gray-700">
+                          <FaClock className="text-gray-500" />
+                          <div>
+                            <p className="text-sm font-medium">
+                              Response Time
+                            </p>
+                            <p className="text-base text-indigo-600">
+                              {latestEntry.responseTime.toFixed(2)} ms
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                  </div>
+                )}
+
+                {/* Charts Container */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 flex-1">
+                  {/* Response Time Chart */}
+                  <div className="flex flex-col">
+                    <h4 className="text-xl font-semibold mb-2 text-gray-800">
+                      Response Time
+                    </h4>
+                    {/* Fixed height to ensure chart is visible */}
+                    <div className="bg-gray-50 p-3 rounded-lg shadow-inner h-52">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <LineChart
+                          data={chartData.filter((d) => d.responseTime !== null)}
+                        >
+                          <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+                          <XAxis
+                            dataKey="time"
+                            tickFormatter={(tick) => tick}
+                            interval="preserveStartEnd"
+                            style={{ fontSize: '0.75rem' }}
+                          />
+                          <YAxis
+                            unit="ms"
+                            allowDecimals={false}
+                            tickFormatter={(v) => v}
+                            style={{ fontSize: '0.75rem' }}
+                          />
+                          <Tooltip
+                            formatter={(value) => [`${value.toFixed(2)} ms`, 'Response']}
+                            labelFormatter={(label) => `Time: ${label}`}
+                          />
+                          <Line
+                            type="monotone"
+                            dataKey="responseTime"
+                            stroke="#10B981"
+                            strokeWidth={2}
+                            dot={false}
+                            activeDot={{
+                              r: 5,
+                              strokeWidth: 2,
+                              fill: '#FFFFFF',
+                              stroke: '#10B981',
+                            }}
+                          />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+
+                  {/* Status Chart */}
+                  <div className="flex flex-col">
+                    <h4 className="text-xl font-semibold mb-2 text-gray-800">
+                      Uptime Status
+                    </h4>
+                    {/* Fixed height to ensure chart is visible */}
+                    <div className="bg-gray-50 p-3 rounded-lg shadow-inner h-52">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <LineChart data={chartData}>
+                          <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+                          <XAxis
+                            dataKey="time"
+                            tickFormatter={(tick) => tick}
+                            interval="preserveStartEnd"
+                            style={{ fontSize: '0.75rem' }}
+                          />
+                          <YAxis
+                            domain={[0, 1]}
+                            ticks={[0, 1]}
+                            tickFormatter={(v) => (v === 1 ? 'Up' : 'Down')}
+                            style={{ fontSize: '0.75rem' }}
+                          />
+                          <Tooltip
+                            formatter={(value) =>
+                              [value === 1 ? 'Online' : 'Offline/Error', 'Status']
+                            }
+                            labelFormatter={(label) => `Time: ${label}`}
+                          />
+                          <Line
+                            type="stepAfter"
+                            dataKey="status"
+                            stroke="#3B82F6"
+                            strokeWidth={2}
+                            dot={false}
+                            activeDot={{
+                              r: 5,
+                              strokeWidth: 2,
+                              fill: '#FFFFFF',
+                              stroke: '#3B82F6',
+                            }}
+                          />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Moving Average Chart */}
+                <div className="mb-6">
+                  <h4 className="text-xl font-semibold mb-2 text-gray-800">
+                    Moving Avg. Response
+                  </h4>
+                  {/* Fixed height to ensure chart is visible */}
+                  <div className="bg-gray-50 p-3 rounded-lg shadow-inner h-48">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={movingAvgData}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+                        <XAxis
+                          dataKey="time"
+                          tickFormatter={(tick) => tick}
+                          interval="preserveStartEnd"
+                          style={{ fontSize: '0.75rem' }}
+                        />
+                        <YAxis
+                          unit="ms"
+                          allowDecimals={false}
+                          tickFormatter={(v) => v}
+                          style={{ fontSize: '0.75rem' }}
+                        />
+                        <Tooltip
+                          formatter={(value) => [`${value.toFixed(2)} ms`, 'Avg']}
+                          labelFormatter={(label) => `Time: ${label}`}
+                        />
+                        <Line
+                          type="monotone"
+                          dataKey="movingAvg"
+                          stroke="#F59E0B"
+                          strokeWidth={2}
+                          dot={false}
+                          activeDot={{
+                            r: 5,
+                            strokeWidth: 2,
+                            fill: '#FFFFFF',
+                            stroke: '#F59E0B',
+                          }}
+                        />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+
+                {/* Recent Activity */}
+                <div className="flex flex-col">
+                  <h4 className="text-xl font-semibold mb-2 text-gray-800">
+                    Recent Activity
+                  </h4>
+                  <div className="overflow-y-auto max-h-48 space-y-3">
+                    {sortedEntries.length > 0 ? (
+                      sortedEntries.slice(-10).reverse().map((entry) => (
+                        <div
+                          key={`${entry.timestamp.toISOString()}-${entry.url}`}
+                          className={`p-3 rounded-lg border ${
+                            entry.status === 200
+                              ? 'bg-green-50 border-green-300'
+                              : entry.status === 'Error'
+                              ? 'bg-red-50 border-red-300'
+                              : 'bg-yellow-50 border-yellow-300'
+                          }`}
+                        >
+                          <div className="flex justify-between items-center mb-1">
+                            <div className="flex items-center gap-2">
+                              {entry.status === 200 ? (
+                                <FaCheckCircle className="text-green-500" />
+                              ) : (
+                                <FaExclamationCircle className="text-red-500" />
+                              )}
+                              <span
+                                className={`font-medium ${
+                                  entry.status === 200
+                                    ? 'text-green-700'
+                                    : 'text-red-700'
+                                }`}
+                              >
+                                {entry.status === 200 ? 'SUCCESS' : 'ERROR'} (
+                                {entry.status})
+                              </span>
+                            </div>
+                            {typeof entry.responseTime === 'number' &&
+                              entry.responseTime >= 0 && (
+                                <span className="text-sm text-gray-600">
+                                  {entry.responseTime.toFixed(2)} ms
+                                </span>
+                              )}
+                          </div>
+                          <p className="text-sm text-gray-800 italic mb-1 break-all">
+                            {entry.message}
+                          </p>
+                          <p className="text-xs text-gray-500 flex items-center gap-1">
+                            <FaClock /> {entry.timestamp.toLocaleString()}
+                          </p>
+                        </div>
+                      ))
+                    ) : (
+                      <p className="text-center text-gray-500 py-4">
+                        No recent activity.
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+    </div>
+  );
 };
 
 export default ServerLogs;
