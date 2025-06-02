@@ -3,34 +3,6 @@
     {
       "url": "https://aixinterview.onrender.com",
       "status": 200,
-      "timestamp": "2025-06-01T18:57:53.845Z",
-      "message": "API Running",
-      "responseTime": 287
-    },
-    {
-      "url": "https://aixinterview.onrender.com",
-      "status": 200,
-      "timestamp": "2025-06-01T18:57:54.720Z",
-      "message": "API Running",
-      "responseTime": 269
-    },
-    {
-      "url": "https://aixinterview.onrender.com",
-      "status": 200,
-      "timestamp": "2025-06-01T18:57:55.868Z",
-      "message": "API Running",
-      "responseTime": 278
-    },
-    {
-      "url": "https://aixinterview.onrender.com",
-      "status": 200,
-      "timestamp": "2025-06-01T18:57:56.948Z",
-      "message": "API Running",
-      "responseTime": 366
-    },
-    {
-      "url": "https://aixinterview.onrender.com",
-      "status": 200,
       "timestamp": "2025-06-01T18:57:57.708Z",
       "message": "API Running",
       "responseTime": 264
@@ -349,37 +321,37 @@
       "timestamp": "2025-06-02T17:31:00.260Z",
       "message": "API Running",
       "responseTime": 310
+    },
+    {
+      "url": "https://aixinterview.onrender.com",
+      "status": 200,
+      "timestamp": "2025-06-02T17:33:06.935Z",
+      "message": "API Running",
+      "responseTime": 305
+    },
+    {
+      "url": "https://aixinterview.onrender.com",
+      "status": 200,
+      "timestamp": "2025-06-02T17:34:06.946Z",
+      "message": "API Running",
+      "responseTime": 413
+    },
+    {
+      "url": "https://aixinterview.onrender.com",
+      "status": 200,
+      "timestamp": "2025-06-02T17:35:06.969Z",
+      "message": "API Running",
+      "responseTime": 286
+    },
+    {
+      "url": "https://aixinterview.onrender.com",
+      "status": 200,
+      "timestamp": "2025-06-02T17:36:06.790Z",
+      "message": "API Running",
+      "responseTime": 296
     }
   ],
   "server2": [
-    {
-      "url": "https://aixinterview-hbui.onrender.com/",
-      "status": 200,
-      "timestamp": "2025-06-01T18:57:54.148Z",
-      "message": "API Running",
-      "responseTime": 302
-    },
-    {
-      "url": "https://aixinterview-hbui.onrender.com/",
-      "status": 200,
-      "timestamp": "2025-06-01T18:57:55.014Z",
-      "message": "API Running",
-      "responseTime": 294
-    },
-    {
-      "url": "https://aixinterview-hbui.onrender.com/",
-      "status": 200,
-      "timestamp": "2025-06-01T18:57:56.131Z",
-      "message": "API Running",
-      "responseTime": 263
-    },
-    {
-      "url": "https://aixinterview-hbui.onrender.com/",
-      "status": 200,
-      "timestamp": "2025-06-01T18:57:57.209Z",
-      "message": "API Running",
-      "responseTime": 261
-    },
     {
       "url": "https://aixinterview-hbui.onrender.com/",
       "status": 200,
@@ -701,37 +673,37 @@
       "timestamp": "2025-06-02T17:31:01.056Z",
       "message": "API Running",
       "responseTime": 796
+    },
+    {
+      "url": "https://aixinterview-hbui.onrender.com/",
+      "status": 200,
+      "timestamp": "2025-06-02T17:33:07.244Z",
+      "message": "API Running",
+      "responseTime": 309
+    },
+    {
+      "url": "https://aixinterview-hbui.onrender.com/",
+      "status": 200,
+      "timestamp": "2025-06-02T17:34:07.771Z",
+      "message": "API Running",
+      "responseTime": 824
+    },
+    {
+      "url": "https://aixinterview-hbui.onrender.com/",
+      "status": 200,
+      "timestamp": "2025-06-02T17:35:07.274Z",
+      "message": "API Running",
+      "responseTime": 305
+    },
+    {
+      "url": "https://aixinterview-hbui.onrender.com/",
+      "status": 200,
+      "timestamp": "2025-06-02T17:36:07.090Z",
+      "message": "API Running",
+      "responseTime": 300
     }
   ],
   "chatApp": [
-    {
-      "url": "https://www.chat.karthik.top/",
-      "status": 200,
-      "timestamp": "2025-06-01T18:57:54.412Z",
-      "message": "<!doctype html>\n<html lang=\"en\" >\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"i",
-      "responseTime": 264
-    },
-    {
-      "url": "https://www.chat.karthik.top/",
-      "status": 200,
-      "timestamp": "2025-06-01T18:57:55.539Z",
-      "message": "<!doctype html>\n<html lang=\"en\" >\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"i",
-      "responseTime": 525
-    },
-    {
-      "url": "https://www.chat.karthik.top/",
-      "status": 200,
-      "timestamp": "2025-06-01T18:57:56.472Z",
-      "message": "<!doctype html>\n<html lang=\"en\" >\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"i",
-      "responseTime": 341
-    },
-    {
-      "url": "https://www.chat.karthik.top/",
-      "status": 200,
-      "timestamp": "2025-06-01T18:57:57.465Z",
-      "message": "<!doctype html>\n<html lang=\"en\" >\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"i",
-      "responseTime": 256
-    },
     {
       "url": "https://www.chat.karthik.top/",
       "status": 200,
@@ -1053,37 +1025,37 @@
       "timestamp": "2025-06-02T17:31:01.384Z",
       "message": "<!doctype html>\n<html lang=\"en\" >\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"i",
       "responseTime": 328
+    },
+    {
+      "url": "https://www.chat.karthik.top/",
+      "status": 200,
+      "timestamp": "2025-06-02T17:33:07.568Z",
+      "message": "<!doctype html>\n<html lang=\"en\" >\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"i",
+      "responseTime": 324
+    },
+    {
+      "url": "https://www.chat.karthik.top/",
+      "status": 200,
+      "timestamp": "2025-06-02T17:34:08.643Z",
+      "message": "<!doctype html>\n<html lang=\"en\" >\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"i",
+      "responseTime": 872
+    },
+    {
+      "url": "https://www.chat.karthik.top/",
+      "status": 200,
+      "timestamp": "2025-06-02T17:35:07.580Z",
+      "message": "<!doctype html>\n<html lang=\"en\" >\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"i",
+      "responseTime": 306
+    },
+    {
+      "url": "https://www.chat.karthik.top/",
+      "status": 200,
+      "timestamp": "2025-06-02T17:36:07.405Z",
+      "message": "<!doctype html>\n<html lang=\"en\" >\n  <head>\n    <meta charset=\"UTF-8\" />\n    <link rel=\"icon\" type=\"i",
+      "responseTime": 315
     }
   ],
   "RAGAPP": [
-    {
-      "url": "https://grokbot.streamlit.app/",
-      "status": "Error",
-      "timestamp": "2025-06-01T18:57:24.138Z",
-      "message": "Maximum number of redirects exceeded",
-      "responseTime": 3386
-    },
-    {
-      "url": "https://grokbot.streamlit.app/",
-      "status": "Error",
-      "timestamp": "2025-06-01T18:57:28.147Z",
-      "message": "Maximum number of redirects exceeded",
-      "responseTime": 3354
-    },
-    {
-      "url": "https://grokbot.streamlit.app/",
-      "status": "Error",
-      "timestamp": "2025-06-01T18:57:32.218Z",
-      "message": "Maximum number of redirects exceeded",
-      "responseTime": 3376
-    },
-    {
-      "url": "https://grokbot.streamlit.app/",
-      "status": "Error",
-      "timestamp": "2025-06-01T18:57:36.423Z",
-      "message": "Maximum number of redirects exceeded",
-      "responseTime": 3563
-    },
     {
       "url": "https://grokbot.streamlit.app/",
       "status": "Error",
@@ -1405,37 +1377,37 @@
       "timestamp": "2025-06-02T17:30:59.950Z",
       "message": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\" />\n    <meta\n      name=\"viewpor",
       "responseTime": 2352
+    },
+    {
+      "url": "https://grokbot.streamlit.app/",
+      "status": 200,
+      "timestamp": "2025-06-02T17:33:06.629Z",
+      "message": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\" />\n    <meta\n      name=\"viewpor",
+      "responseTime": 2375
+    },
+    {
+      "url": "https://grokbot.streamlit.app/",
+      "status": 200,
+      "timestamp": "2025-06-02T17:34:06.532Z",
+      "message": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\" />\n    <meta\n      name=\"viewpor",
+      "responseTime": 2272
+    },
+    {
+      "url": "https://grokbot.streamlit.app/",
+      "status": 200,
+      "timestamp": "2025-06-02T17:35:06.683Z",
+      "message": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\" />\n    <meta\n      name=\"viewpor",
+      "responseTime": 2414
+    },
+    {
+      "url": "https://grokbot.streamlit.app/",
+      "status": 200,
+      "timestamp": "2025-06-02T17:36:06.494Z",
+      "message": "<!doctype html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\" />\n    <meta\n      name=\"viewpor",
+      "responseTime": 2219
     }
   ],
   "FlaskApp": [
-    {
-      "url": "https://collegify.pythonanywhere.com/",
-      "status": 200,
-      "timestamp": "2025-06-01T18:57:54.707Z",
-      "message": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
-      "responseTime": 295
-    },
-    {
-      "url": "https://collegify.pythonanywhere.com/",
-      "status": 200,
-      "timestamp": "2025-06-01T18:57:55.842Z",
-      "message": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
-      "responseTime": 303
-    },
-    {
-      "url": "https://collegify.pythonanywhere.com/",
-      "status": 200,
-      "timestamp": "2025-06-01T18:57:56.765Z",
-      "message": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
-      "responseTime": 293
-    },
-    {
-      "url": "https://collegify.pythonanywhere.com/",
-      "status": 200,
-      "timestamp": "2025-06-01T18:57:57.763Z",
-      "message": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
-      "responseTime": 298
-    },
     {
       "url": "https://collegify.pythonanywhere.com/",
       "status": 200,
@@ -1757,6 +1729,34 @@
       "timestamp": "2025-06-02T17:31:02.255Z",
       "message": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
       "responseTime": 871
+    },
+    {
+      "url": "https://collegify.pythonanywhere.com/",
+      "status": 200,
+      "timestamp": "2025-06-02T17:33:08.379Z",
+      "message": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+      "responseTime": 811
+    },
+    {
+      "url": "https://collegify.pythonanywhere.com/",
+      "status": 200,
+      "timestamp": "2025-06-02T17:34:09.455Z",
+      "message": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+      "responseTime": 812
+    },
+    {
+      "url": "https://collegify.pythonanywhere.com/",
+      "status": 200,
+      "timestamp": "2025-06-02T17:35:08.379Z",
+      "message": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+      "responseTime": 799
+    },
+    {
+      "url": "https://collegify.pythonanywhere.com/",
+      "status": 200,
+      "timestamp": "2025-06-02T17:36:08.259Z",
+      "message": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content",
+      "responseTime": 854
     }
   ]
 }

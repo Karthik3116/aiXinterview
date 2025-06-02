@@ -444,7 +444,7 @@ const checkServers = async () => {
     }
 
     // Only keep the last 50 entries per server:
-    logData[server.name] = serverLogs.slice(-50);
+    logData[server.name] = serverLogs.slice(-20);
   }
 
   // Write out the JSON to disk (overwriting the file each time):

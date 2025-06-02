@@ -38,7 +38,7 @@ const ServerLogs = () => {
       const dynamicBaseUrl = await getWorkingApiBaseUrl();
       setBaseUrl(dynamicBaseUrl);
 
-      const res = await fetch(`${dynamicBaseUrl}/details`);
+      const res = await fetch(`http://localhost:5000/details`);
       if (!res.ok) {
         const text = await res.text();
         throw new Error(
@@ -185,6 +185,7 @@ const ServerLogs = () => {
     <div className="min-h-screen bg-gray-50 p-8">
       {/* ===== ServerLogs Header ===== */}
       <header className="mb-8">
+        <br /><br /><br /><br /><br />
         <h1 className="text-5xl font-extrabold text-center text-gray-800 mb-2">
           🌐 Server Monitoring Dashboard
         </h1>
