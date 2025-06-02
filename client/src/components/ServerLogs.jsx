@@ -71,7 +71,7 @@ const ServerLogs = () => {
 
   useEffect(() => {
     fetchLogs();
-    const intervalId = setInterval(fetchLogs, 5000); // Refresh every 5 seconds
+    const intervalId = setInterval(fetchLogs, 50000); // Refresh every 5 seconds
     return () => clearInterval(intervalId);
   }, [fetchLogs]);
 
