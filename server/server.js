@@ -113,13 +113,14 @@
 //   console.log(`🚀 Server started on http://localhost:${PORT}`);
 //   console.log(`📊 Monitor dashboard at http://localhost:${PORT}/status`);
 // });
-const axios = require('axios');
 
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const fs = require('fs');
+const tough = require("tough-cookie");
+
 const winston = require('winston');
 const expressWinston = require('express-winston');
 const statusMonitor = require('express-status-monitor');
@@ -276,36 +277,92 @@ if (fs.existsSync(logFile)) {
 
 const checkServers = async () => {
   for (const server of monitoredServers) {
+    // Ensure we have an array to push logs into:
     const serverLogs = logData[server.name] || [];
+
     const start = Date.now();
-
     try {
-      const response = await axios.get(server.url, { maxRedirects: 5 });
-      const end = Date.now();
+      let status, messageSnippet;
 
+      // ─────────────────────────────────────────────
+      // If this is RAGAPP, use axios + cookie‐jar to follow Streamlit’s redirect chain.
+      if (server.name === "RAGAPP") {
+        // 1) Dynamically import axios‐cookiejar‐support (ESM) at runtime
+        const { wrapper } = await import("axios-cookiejar-support");
+        // 2) Create a fresh cookie jar for this single request
+        const cookieJar = new tough.CookieJar();
+        // 3) Wrap an axios instance so it uses our cookieJar
+        const client = wrapper(
+          axios.create({
+            jar: cookieJar,
+            withCredentials: true, // ← important: send cookies on cross‐domain redirects
+          })
+        );
+
+        // 4) Perform the GET with browser‐like headers
+        const response = await client.get(server.url, {
+          maxRedirects: 10,
+          headers: {
+            // Fake a desktop Chrome UA so Streamlit doesn’t treat us like a bot
+            "User-Agent":
+              "Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
+              "AppleWebKit/537.36 (KHTML, like Gecko) " +
+              "Chrome/115.0.0.0 Safari/537.36",
+            Accept:
+              "text/html,application/xhtml+xml,application/xml;q=0.9," +
+              "image/avif,image/webp,image/apng,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Accept-Encoding": "gzip, deflate, br",
+            Referer: server.url,
+          },
+          timeout: 15000,
+        });
+
+        status = response.status;
+        // Take the first 100 chars (or however many you want) as a “message snippet”
+        messageSnippet = (typeof response.data === "string"
+          ? response.data
+          : "")
+          .slice(0, 100);
+      }
+      // ─────────────────────────────────────────────
+      // Otherwise, use the standard fetch() for all other URLs:
+      else {
+        const response = await fetch(server.url, { method: "GET" });
+        const text = await response.text();
+        status = response.status;
+        messageSnippet = text.slice(0, 100);
+      }
+
+      const end = Date.now();
       serverLogs.push({
         url: server.url,
-        status: response.status,
+        status: status,
         timestamp: new Date().toISOString(),
-        message: response.data.slice(0, 100),
-        responseTime: end - start
+        message: messageSnippet,
+        responseTime: end - start, // in milliseconds
       });
     } catch (error) {
       const end = Date.now();
       serverLogs.push({
         url: server.url,
-        status: 'Error',
+        status: "Error",
         timestamp: new Date().toISOString(),
         message: error.message,
-        responseTime: end - start
+        responseTime: end - start,
       });
     }
 
+    // Only keep the last 50 entries per server:
     logData[server.name] = serverLogs.slice(-50);
   }
 
+  // Write out the JSON to disk (overwriting the file each time):
   fs.writeFileSync(logFile, JSON.stringify(logData, null, 2));
 };
+
+
+
 // ✅ Check servers every 5 minutes
 setInterval(checkServers, 60* 1000);
 checkServers(); // Initial check on startup
