@@ -348,7 +348,10 @@ const monitoredServers = [
   { name: 'server1',  url: 'https://aixinterview.onrender.com' },
   { name: 'server2',  url: 'https://aixinterview-hbui.onrender.com/' },
   { name: 'chatApp',  url: 'https://www.chat.karthik.top/' },
-  { name: 'FlaskApp', url: 'https://collegify.pythonanywhere.com/' }
+  { name: 'FlaskApp', url: 'https://collegify.pythonanywhere.com/' },
+  { name: 'BioValut_API', url: 'https://karthik3116-deepface-api.hf.space/' },
+  { name: 'BioValut_SERVER', url: 'https://biovault-txua.onrender.com/' },
+  
 ];
 
 const logFile = 'log.json';
