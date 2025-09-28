@@ -456,8 +456,8 @@ const checkServers = async () => {
 };
 
 // ✅ Check servers every 5 minutes
-setInterval(checkServers, 5*60 * 1000);
-checkServers(); // Initial check on startup
+// setInterval(checkServers, 5*60 * 1000);
+// checkServers(); // Initial check on startup
 
 // ✅ Serve logs
 app.get('/details', (req, res) => {

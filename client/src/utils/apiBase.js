@@ -38,8 +38,8 @@ const isPrimaryApiHealthy = async (primaryUrl) => {
 };
 
 export const getWorkingApiBaseUrl = async () => {
-    const primaryBase = import.meta.env.VITE_API_BASE_URL;
-    const fallbackBase = `https://${import.meta.env.VITE_API_BASE_URL_2}`;
+    const primaryBase = "http://localhost:5000";
+    const fallbackBase = `http://localhost:5000`;
 
     const isHealthy = await isPrimaryApiHealthy(primaryBase);
     return isHealthy ? primaryBase : fallbackBase;
