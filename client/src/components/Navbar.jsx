@@ -1,248 +1,153 @@
-// import React, { useState } from 'react';
-// import { Link, useLocation } from 'react-router-dom';
-// import { Menu, X } from 'lucide-react'; // Using lucide-react for icons
-
-// const Navbar = ({ user, onLogout }) => {
-//     const [isOpen, setIsOpen] = useState(false);
-//     const location = useLocation();
-
-//     const toggleMenu = () => setIsOpen(!isOpen);
-//     const closeMenu = () => setIsOpen(false);
-
-//     // Reusable NavLink component for cleaner code and consistent styling
-//     const NavLink = ({ to, label, isButton = false }) => {
-//         const baseClasses = `block px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200`;
-//         const activeClasses = `bg-purple-600 text-white shadow`;
-//         const inactiveClasses = `text-gray-700 hover:bg-purple-100 hover:text-purple-800`;
-//         // Specific styles for the logout button
-//         const logoutClasses = `text-purple-600 border border-purple-600 hover:bg-red-50 hover:text-red-700 hover:border-red-700`;
-
-//         if (isButton) {
-//             return (
-//                 <button
-//                     onClick={() => {
-//                         onLogout();
-//                         closeMenu(); // Close menu on logout
-//                     }}
-//                     // Ensure button fills width on mobile and centers on desktop if needed
-//                     className={`${baseClasses} ${logoutClasses} w-full text-left md:w-auto md:text-center`}
-//                 >
-//                     {label}
-//                 </button>
-//             );
-//         }
-
-//         return (
-//             <Link
-//                 to={to}
-//                 onClick={closeMenu}
-//                 className={`${baseClasses} ${
-//                     location.pathname === to ? activeClasses : inactiveClasses
-//                 }`}
-//             >
-//                 {label}
-//             </Link>
-//         );
-//     };
-
-//     return (
-//         <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 bg-white/70 backdrop-blur-lg border border-gray-200 shadow-lg rounded-full px-4 py-2 md:px-6">
-//             <div className="flex items-center justify-between h-12 md:h-auto">
-//                 {/* Logo */}
-//                 <Link
-//                     to="/"
-//                     onClick={closeMenu}
-//                     className="text-lg font-bold text-purple-700 whitespace-nowrap hover:text-purple-800 transition-colors mr-4 flex-shrink-0" // flex-shrink-0 to prevent shrinking
-//                 >
-//                     AI Interview Pro
-//                 </Link>
-
-//                 {/* Desktop Nav Links */}
-//                 <div className="hidden md:flex items-center gap-4">
-//                     {!user ? (
-//                         <>
-//                             <NavLink to="/login" label="Login" />
-//                             <NavLink to="/signup" label="Signup" />
-//                         </>
-//                     ) : (
-//                         <>
-//                             <NavLink to="/" label="Home" />
-//                             <NavLink to="/interview/new" label="Create Interview" />
-//                             <NavLink to="/settings" label="Settings" /> {/* Added Settings link */}
-//                             <NavLink label="Logout" isButton={true} />
-//                         </>
-//                     )}
-//                 </div>
-
-//                 {/* Mobile Menu Toggle */}
-//                 <div className="md:hidden flex items-center"> {/* Added flex and items-center for vertical alignment */}
-//                     <button
-//                         onClick={toggleMenu}
-//                         className="text-gray-600 hover:text-purple-700 focus:outline-none p-2 rounded-full focus:ring-2 focus:ring-purple-400" // Added focus ring
-//                         aria-controls="mobile-menu" // For accessibility
-//                         aria-expanded={isOpen ? "true" : "false"} // For accessibility
-//                         aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
-//                     >
-//                         {isOpen ? <X size={24} /> : <Menu size={24} />}
-//                     </button>
-//                 </div>
-//             </div>
-
-//             {/* Mobile Menu Items (animated slide-down) */}
-//             <div
-//                 id="mobile-menu" // For aria-controls
-//                 className={`md:hidden absolute w-full left-0 bg-white/90 backdrop-blur-lg border-t border-gray-200 shadow-lg transition-all duration-300 ease-in-out origin-top ${
-//                     isOpen ? 'scale-y-100 opacity-100 py-4 max-h-screen' : 'scale-y-0 opacity-0 h-0 pointer-events-none' // max-h-screen for animation, pointer-events-none to prevent interaction when hidden
-//                 } `}
-//                 // Tailwind classes for positioning directly below the navbar content,
-//                 // matching its rounded bottom corners
-//                 style={{ top: '100%', borderRadius: '0 0 2rem 2rem' }}
-//             >
-//                 <div className="flex flex-col items-start px-4 gap-2">
-//                     {!user ? (
-//                         <>
-//                             <NavLink to="/login" label="Login" />
-//                             <NavLink to="/signup" label="Signup" />
-//                         </>
-//                     ) : (
-//                         <>
-//                             <NavLink to="/" label="Home" />
-//                             <NavLink to="/interview/new" label="Create Interview" />
-//                             <NavLink to="/settings" label="Settings" /> {/* Added Settings link to mobile */}
-//                             <NavLink label="Logout" isButton={true} />
-//                         </>
-//                     )}
-//                 </div>
-//             </div>
-//         </nav>
-//     );
-// };
-
-// export default Navbar;
-
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react'; // Using lucide-react for icons
+import { Menu, X, Mic, Home as HomeIcon, Settings, LogOut, LogIn, ChevronDown } from 'lucide-react';
+
+// A simple, stylish SVG logo component
+const Logo = () => (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-purple-600">
+        <path d="M12 2C11.4477 2 11 2.44772 11 3V11C11 11.5523 11.4477 12 12 12C12.5523 12 13 11.5523 13 11V3C13 2.44772 12.5523 2 12 2Z" fill="currentColor" />
+        <path d="M19 10C18.4477 10 18 10.4477 18 11V13C18 16.3137 15.3137 19 12 19C8.68629 19 6 16.3137 6 13V11C6 10.4477 5.55228 10 5 10C4.44772 10 4 10.4477 4 11V13C4 17.4183 7.58172 21 12 21C16.4183 21 20 17.4183 20 13V11C20 10.4477 19.5523 10 19 10Z" fill="currentColor" />
+        <path d="M9 3C9 2.44772 8.55228 2 8 2C7.44772 2 7 2.44772 7 3V7C7 7.55228 7.44772 8 8 8C8.55228 8 9 7.55228 9 7V3Z" fill="currentColor" opacity="0.7"/>
+        <path d="M17 3C17 2.44772 16.5523 2 16 2C15.4477 2 15 2.44772 15 3V7C15 7.55228 15.4477 8 16 8C16.5523 8 17 7.55228 17 7V3Z" fill="currentColor" opacity="0.7"/>
+    </svg>
+);
 
 const Navbar = ({ user, onLogout }) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const location = useLocation();
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isProfileOpen, setIsProfileOpen] = useState(false);
+    const profileMenuRef = useRef(null);
 
-    const toggleMenu = () => setIsOpen(!isOpen);
-    const closeMenu = () => setIsOpen(false);
+    // Close profile dropdown if clicked outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
+                setIsProfileOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
-    // Reusable NavLink component for cleaner code and consistent styling
-    const NavLink = ({ to, label, isButton = false }) => {
-        // Base classes for all links/buttons
-        const baseClasses = `block px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-in-out
-                             no-underline focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-offset-2`;
-
-        // Classes for active state (current page)
-        const activeClasses = `bg-purple-600 text-white shadow-md transform hover:scale-105 active:scale-95`;
-
-        // Classes for inactive state (not current page)
-        const inactiveClasses = `text-gray-700 hover:bg-purple-100 hover:text-purple-800
-                                 transform hover:scale-105 active:scale-95`;
-
-        // Specific styles for the logout button
-        const logoutClasses = `text-purple-600 border border-purple-600 hover:bg-red-50 hover:text-red-700 hover:border-red-700`;
-
-
-        if (isButton) {
-            return (
-                <button
-                    onClick={() => {
-                        onLogout();
-                        closeMenu(); // Close menu on logout
-                    }}
-                    // Ensure button fills width on mobile and centers on desktop if needed
-                    className={`${baseClasses} ${logoutClasses} w-full text-left md:w-auto md:text-center`}
-                >
-                    {label}
-                </button>
-            );
-        }
-
-        return (
-            <Link
-                to={to}
-                onClick={closeMenu}
-                className={`${baseClasses} ${
-                    location.pathname === to ? activeClasses : inactiveClasses
-                }`}
-            >
-                {label}
-            </Link>
-        );
+    const closeAllMenus = () => {
+        setIsMobileMenuOpen(false);
+        setIsProfileOpen(false);
     };
 
-    return (
-        <nav className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 bg-white/70 backdrop-blur-lg border border-gray-200 shadow-lg rounded-full px-4 py-2 md:px-6 w-[calc(100%-2rem)] md:w-auto max-w-[90rem]">
-            <div className="flex items-center justify-between h-12 md:h-auto">
-                {/* Logo */}
-                <Link
-                    to="/"
-                    onClick={closeMenu}
-                    className="text-lg md:text-xl font-bold text-purple-700 whitespace-nowrap hover:text-purple-800 transition-colors mr-4 flex-shrink-0"
-                >
-                    AI Interview Pro
-                </Link>
+    // Reusable link component for dropdowns and mobile menu
+    const DropdownLink = ({ to, label, icon, onClick }) => (
+        <Link
+            to={to}
+            onClick={() => {
+                if(onClick) onClick();
+                closeAllMenus();
+            }}
+            className="flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-purple-50 hover:text-purple-600 rounded-md transition-colors"
+        >
+            {icon}
+            <span>{label}</span>
+        </Link>
+    );
 
-                {/* Desktop Nav Links */}
-                <div className="hidden md:flex items-center gap-4">
-                    {!user ? (
-                        <>
-                            <NavLink to="/login" label="Login" />
-                            <NavLink to="/signup" label="Signup" />
-                        </>
-                    ) : (
-                        <>
-                            <NavLink to="/" label="Home" />
-                            <NavLink to="/interview/new" label="Create Interview" />
-                            <NavLink to="/settings" label="Settings" />
-                            <NavLink label="Logout" isButton={true} />
-                        </>
-                    )}
+    const loggedInNav = (
+        <div className="relative" ref={profileMenuRef}>
+            <button
+                onClick={() => setIsProfileOpen(!isProfileOpen)}
+                className="flex items-center gap-2 p-2 rounded-full hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+            >
+                <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                    {user?.userId ? 'K' : '?'}
                 </div>
-
-                {/* Mobile Menu Toggle */}
-                <div className="md:hidden flex items-center">
+                <span className="hidden sm:inline text-sm font-semibold text-gray-700">Karthik</span>
+                <ChevronDown size={16} className={`text-gray-500 transition-transform duration-300 ${isProfileOpen ? 'rotate-180' : ''}`} />
+            </button>
+            {isProfileOpen && (
+                <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-2xl border border-gray-100 p-2 z-50 animate-fade-in-up">
+                    <DropdownLink to="/" label="Home" icon={<HomeIcon size={16} />} />
+                    <DropdownLink to="/interview/new" label="New Interview" icon={<Mic size={16} />} />
+                    <DropdownLink to="/settings" label="Settings" icon={<Settings size={16} />} />
+                    <div className="h-px bg-gray-200 my-2"></div>
                     <button
-                        onClick={toggleMenu}
-                        className="text-gray-600 hover:text-purple-700 focus:outline-none p-2 rounded-full focus:ring-2 focus:ring-purple-400"
-                        aria-controls="mobile-menu"
-                        aria-expanded={isOpen ? "true" : "false"}
-                        aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+                        onClick={() => {
+                            onLogout();
+                            closeAllMenus();
+                        }}
+                        className="w-full flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 rounded-md transition-colors"
                     >
-                        {isOpen ? <X size={24} /> : <Menu size={24} />}
+                        <LogOut size={16} />
+                        <span>Logout</span>
                     </button>
                 </div>
-            </div>
+            )}
+        </div>
+    );
 
-            {/* Mobile Menu Items (animated slide-down) */}
-            <div
-                id="mobile-menu"
-                className={`md:hidden absolute w-full left-0 bg-white/90 backdrop-blur-lg border-t border-gray-200 shadow-lg transition-all duration-300 ease-in-out origin-top
-                            ${isOpen ? 'scale-y-100 opacity-100 py-4 max-h-screen' : 'scale-y-0 opacity-0 h-0 pointer-events-none'}
-                            overflow-hidden`}  
-                style={{ top: '100%', borderRadius: '0 0 2rem 2rem' }}
-            >
-                <div className="flex flex-col items-start px-4 gap-2">
-                    {!user ? (
-                        <>
-                            <NavLink to="/login" label="Login" />
-                            <NavLink to="/signup" label="Signup" />
-                        </>
-                    ) : (
-                        <>
-                            <NavLink to="/" label="Home" />
-                            <NavLink to="/interview/new" label="Create Interview" />
-                            <NavLink to="/settings" label="Settings" />
-                            <NavLink label="Logout" isButton={true} />
-                        </>
-                    )}
+    const loggedOutNav = (
+        <Link
+            to="/auth"
+            onClick={closeAllMenus}
+            className="flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300"
+        >
+            <LogIn size={16} />
+            <span>Login / Sign Up</span>
+        </Link>
+    );
+
+    return (
+        <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-200/80">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex items-center justify-between h-16">
+                    {/* Logo */}
+                    <Link to="/" onClick={closeAllMenus} className="flex items-center gap-2 group">
+                        <Logo />
+                        <span className="text-xl font-bold text-gray-800 group-hover:text-purple-700 transition-colors">AI Interview Pro</span>
+                    </Link>
+
+                    {/* Desktop Nav */}
+                    <div className="hidden md:flex items-center gap-4">
+                        {user ? loggedInNav : loggedOutNav}
+                    </div>
+
+                    {/* Mobile Menu Toggle */}
+                    <div className="md:hidden flex items-center">
+                        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-2 text-gray-600 hover:text-purple-700">
+                            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                        </button>
+                    </div>
                 </div>
             </div>
+
+            {/* Mobile Menu */}
+            {isMobileMenuOpen && (
+                <div className="md:hidden bg-white border-t border-gray-200 p-4 space-y-2 animate-fade-in-down">
+                    {user ? (
+                        <>
+                            <DropdownLink to="/" label="Home" icon={<HomeIcon size={18} />} />
+                            <DropdownLink to="/interview/new" label="New Interview" icon={<Mic size={18} />} />
+                            <DropdownLink to="/settings" label="Settings" icon={<Settings size={18} />} />
+                             <div className="h-px bg-gray-200 my-2"></div>
+                            <button
+                                onClick={() => {
+                                    onLogout();
+                                    closeAllMenus();
+                                }}
+                                className="w-full flex items-center gap-3 px-4 py-3 text-sm font-semibold text-red-600 bg-red-50 hover:bg-red-100 rounded-md transition-colors"
+                            >
+                                <LogOut size={18} />
+                                <span>Logout</span>
+                            </button>
+                        </>
+                    ) : (
+                        <Link
+                            to="/auth"
+                            onClick={closeAllMenus}
+                            className="flex items-center justify-center gap-3 w-full px-5 py-3 text-base font-semibold text-white bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg shadow-lg"
+                        >
+                            <LogIn size={18} />
+                            <span>Login / Sign Up</span>
+                        </Link>
+                    )}
+                </div>
+            )}
         </nav>
     );
 };
