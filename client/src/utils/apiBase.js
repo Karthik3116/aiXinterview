@@ -38,7 +38,7 @@ const isPrimaryApiHealthy = async (primaryUrl) => {
 };
 
 export const getWorkingApiBaseUrl = async () => {
-    const primaryBase = "http://localhost:5000";
+    const primaryBase = "https://aixinterview.onrender.com";
     const fallbackBase = `http://localhost:5000`;
 
     const isHealthy = await isPrimaryApiHealthy(primaryBase);
