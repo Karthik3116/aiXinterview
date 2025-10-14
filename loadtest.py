@@ -7,3 +7,5 @@ class WebsiteUser(HttpUser):
     @task
     def load_login_page(self):
         self.client.get("/sign-in")
+
+
